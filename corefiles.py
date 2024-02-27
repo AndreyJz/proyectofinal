@@ -4,40 +4,34 @@ import os
 import json
 BASE="data/"
 
-def borrar_pantalla():
+def borrar_pantalla(): #funcion borrar pantalla (cualquier plataforma)
     if sys.platform == "linux" or sys.platform == "darwin":
         os.system("clear")
     else:
         os.system("cls")
 
-def pausar_pantalla():
+def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     if sys.platform == "linux" or sys.platform == "darwin":
         x = input("Presione una tecla para continuar...")
     else:
         os.system("pause")
 
-def checkFile(archivo:str, data):
-    if(os.path.isfile(BASE+ archivo)):
-        with open(BASE + archivo, 'r') as br:
+def checkFile(archivo:str, data): #comprueba si el archivo existe
+    if(os.path.isfile(BASE+ archivo)): 
+        with open(BASE + archivo, 'r') as br: #si existe lo carga
             data = json.load(br)
             return data
     else: 
-        with open(BASE + archivo ,"w") as bw:
+        with open(BASE + archivo ,"w") as bw: #si no existe lo crea
             json.dump(data,bw,indent=4)
             return data
 
-def updateData(archivo:str,data):
+def updateData(archivo:str,data): #actualiza el diccionario
     with open(BASE+archivo,"r+") as rwf:
-        rwf.seek(0)
         json.dump(data,rwf,indent=4)
-        rwf.truncate()
+        rwf.truncate() #se asegura de que no queden archivos antiguos
         
-def Search(inventario = dict):
-    tabla = []
-    for values in inventario.values():
-        tabla.append([values['nit'], values['nombrePro']])
-        borrar_pantalla()
-        print(tabulate(tabla, tablefmt='grid'))
+def Search(inventario = dict): #busca el archivo para trabajar con este (falta actualizar)
     nit = str(input(')_'))
     for idx, (key, value) in enumerate(inventario.items()):
         if value['nit'] == nit:
