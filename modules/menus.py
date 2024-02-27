@@ -1,6 +1,6 @@
 import os
 
-def mainmenu():
+def mainmenu(): #menu principal
     titulo = """
     +++++++++++++++++++++++++++++++++++++++++
     [ SISTEMA G&C DE INVENTARIO CAMPUSLANDS ]
@@ -34,7 +34,7 @@ def mainmenu():
         os.system('pause')
         mainmenu()
 
-def menuAPZ(opcion):
+def menuAPZ(opcion): #menu (agregar contenido)
     titulo = f"""
     +++++++++++++++++
     [ MENU {opcion} ]
@@ -62,7 +62,7 @@ def menuAPZ(opcion):
         os.system('pause')
         menuAPZ(opcion)
 
-def menuAsigActivos():
+def menuAsigActivos(): #menu de asignacion de activos
     titulo = """
     ++++++++++++++++++++++++++++++
     [ MENU ASIGNACION DE ACTIVOS ]
@@ -86,7 +86,7 @@ def menuAsigActivos():
         os.system('pause')
         menuAsigActivos()
 
-def menuRep():
+def menuRep(): #menu de reportes
     titulo = """
     +++++++++++++++++
     [ MENU REPORTES ]
@@ -118,7 +118,7 @@ def menuRep():
         os.system('pause')
         menuRep()
 
-def menuMOVActivos():
+def menuMOVActivos():  #menu de movimiento de activos
     titulo = """
     ++++++++++++++++++++++++++++++
     [ MENU MOVIMIENTO DE ACTIVOS ]
