@@ -30,13 +30,36 @@ def updateData(archivo:str,data): #actualiza el diccionario
     with open(BASE+archivo,"r+") as rwf:
         json.dump(data,rwf,indent=4)
         rwf.truncate() #se asegura de que no queden archivos antiguos
-        
-def SearchActivos(inventario: dict, opcion: str): 
+
+def delOp(dataInventario,opcion):
+    if dataInventario[opcion]:
+        borrar_pantalla()
+        if opcion == 'activo':
+            delVal = input("Ingrese el Codigo de campus del Activo que quiere borrar <-> ")
+        elif opcion == 'personal':
+            delVal = input("Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ")
+        elif opcion == 'zonas':
+            delVal = input("Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ")
+
+        if delVal not in dataInventario[opcion].items():
+            print('El codigo ingresado no esta registrado...')
+            os.system('pause')
+            delOp()
+        dataInventario[opcion].pop(delVal)
+        updateData('inventario.json',dataInventario)
+        print('Ha sido eliminado correctamente')
+        pausar_pantalla()
+    else:
+        print(f'No has ingresado algun {opcion}...')
+        os.system('pause')
+
+
+def Search(inventario: dict, opcion: str): 
     if inventario[opcion]:
         isValueTrue = True
         while isValueTrue:
             codCampus = str(input(')_'))
-            for idx, (key, value) in enumerate(inventario[opcion].items()):
+            for idx, (key, value) in enumerate(inventario[opcion].items()): #Itera sobre el diccionario seleccionado y idx imprime un mensaje de error
                 if opcion == 'activos':
                     if value['codCampus'] == codCampus:
                         return key
@@ -44,10 +67,23 @@ def SearchActivos(inventario: dict, opcion: str):
                         print('nombre no encontrado, ingreselo de nuevo')
                         pausar_pantalla()
                 elif opcion == 'personal':
-                    pass
+                    if value['id'] == codCampus:
+                        return key
+                    elif len(inventario[opcion])-1 == idx:
+                        print('Id no encontrado, ingreselo de nuevo')
+                        pausar_pantalla()
                 elif opcion == 'zonas':
-                    pass
-                
+                    if value['NroZona'] == codCampus:
+                        return key
+                    elif len(inventario[opcion])-1 == idx:
+                        print('Nro de Zona no encontrado, ingreselo de nuevo')
+                        pausar_pantalla()
+                elif opcion == 'asignacion':
+                    if value['NroAsig'] == codCampus:
+                        return key
+                    elif len(inventario[opcion])-1 == idx:
+                        print('Nro de Asignacion no encontrado, ingreselo de nuevo')
+                        pausar_pantalla()
     else:
         print('no has ingresado ningun activo')
         pausar_pantalla()
