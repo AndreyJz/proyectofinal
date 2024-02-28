@@ -21,13 +21,13 @@ def mainmenu(data): #menu principal
         print(opciones)
         op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
         if (op=='1'):
-            opcion='ACTIVOS'
+            opcion='activos'
             menuAPZ(opcion)
         elif (op=='2'):
-            opcion='PERSONAL'
+            opcion='personal'
             menuAPZ(opcion)
         elif (op=='3'):
-            opcion='ZONAS'
+            opcion='zonas'
             menuAPZ(opcion)
         elif (op=='4'):
             menuAsigActivos()
@@ -57,35 +57,35 @@ def menuAPZ(opcion): #menu (agregar contenido)
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
-        if opcion == 'ACTIVOS':
+        if opcion == 'activos':
             AddActivo(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'PERSONAL':
+        elif opcion == 'personal':
             pass
-        else:
+        elif opcion == 'zonas':
             pass
     elif (op=='2'):
-        if opcion == 'ACTIVOS':
+        if opcion == 'activos':
             EditActivo(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'PERSONAL':
+        elif opcion == 'personal':
             pass
-        else:
+        elif opcion == 'zonas':
             pass
     elif (op=='3'):
-        if opcion == 'ACTIVOS':
+        if opcion == 'activos':
             DeleteActivo(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'PERSONAL':
+        elif opcion == 'personal':
             pass
-        else:
+        elif opcion == 'zonas':
             pass
     elif (op=='4'):
-        if opcion == 'ACTIVOS':
+        if opcion == 'activos':
             pass
-        elif opcion == 'PERSONAL':
+        elif opcion == 'personal':
             pass
-        else:
+        elif opcion == 'zonas':
             pass
     elif (op=='5'):
         print('Volviendo al menu principal...')
