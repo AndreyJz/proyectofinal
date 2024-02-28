@@ -116,14 +116,14 @@ def EditActivo(inventario):
         return
         
 
-def DeleteActivo(inventario: dict):
-    if inventario['activos']:
-        borrar_pantalla()
-        print('ingrese el codigo de campus del activo que desea borrar')
-        codCampus= SearchActivos(inventario, 'activos')
-        del(inventario['activos'][codCampus])
-        print('el activo ha sido eliminado correctamente')
-        pausar_pantalla()
-    else:
-        return
+# def DeleteActivo(inventario: dict):
+#     if inventario['activos']:
+#         borrar_pantalla()
+#         print('ingrese el codigo de campus del activo que desea borrar')
+#         codCampus= SearchActivos(inventario, 'activos')
+#         del(inventario['activos'][codCampus])
+#         print('el activo ha sido eliminado correctamente')
+#         pausar_pantalla()
+#     else:
+#         return
     

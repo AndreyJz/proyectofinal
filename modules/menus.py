@@ -1,5 +1,7 @@
 from modules.Activos import AddActivo, EditActivo, DeleteActivo
-from corefiles import borrar_pantalla, pausar_pantalla, updateData
+from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOP, Search
+import personas as p
+import zonas as z
 import os
 
 
@@ -47,11 +49,10 @@ def mainmenu(data): #menu principal
 def menuAPZ(opcion): #menu (agregar contenido)
     titulo = f"""
     +++++++++++++++++
-    [ MENU {opcion} ]
+    [ MENU {opcion.upper} ]
     +++++++++++++++++
     """
     print(titulo)
-    lstOp=[1,2,3,4,5]
     opciones = '1. Agregar\n2. Editar\n3. Eliminar\n4. Buscar\n5. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
@@ -60,32 +61,25 @@ def menuAPZ(opcion): #menu (agregar contenido)
             AddActivo(inventario)
             updateData('data.json', inventario)
         elif opcion == 'personal':
-            pass
+            p.AddPersona(inventario)
+            updateData('data.json', inventario)
         elif opcion == 'zonas':
-            pass
+            z.AddZona(inventario)
+            updateData('data.json', inventario)
     elif (op=='2'):
         if opcion == 'activos':
             EditActivo(inventario)
             updateData('data.json', inventario)
         elif opcion == 'personal':
-            pass
-        elif opcion == 'zonas':
-            pass
-    elif (op=='3'):
-        if opcion == 'activos':
-            DeleteActivo(inventario)
+            p.EditPersona(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'personal':
-            pass
         elif opcion == 'zonas':
-            pass
+            z.EditZona(inventario)
+            updateData('data.json', inventario)
+    elif (op=='3'):
+        delOP(inventario,opcion)
     elif (op=='4'):
-        if opcion == 'activos':
-            pass
-        elif opcion == 'personal':
-            pass
-        elif opcion == 'zonas':
-            pass
+        Search(inventario,opcion)
     elif (op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')
@@ -104,15 +98,15 @@ def menuAsigActivos(): #menu de asignacion de activos
     ++++++++++++++++++++++++++++++
     """
     print(titulo)
-    lstOp=[1,2,3]
     opciones = '1. Crear Asignacion\n2. Buscar Asignacion\n3. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
-    if (op==1):
-        pass
-    elif(op==2):
-        pass
-    elif(op==3):
+    if (op=='1'):
+        p.AddAsig(inventario)
+        updateData('data.json', inventario)
+    elif(op=='2'):
+        Search(inventario,opcion='asigancion')
+    elif(op=='3'):
         print('Volviendo al menu principal...')
         os.system('pause')
         mainmenu()
@@ -128,23 +122,22 @@ def menuRep(): #menu de reportes
     +++++++++++++++++
     """
     print(titulo)
-    lstOp=[1,2,3,4,5,6,7]
     opciones = '1. Lista Activos\n2. Lista Activos por Categoria\n3. Lista Activos dados de Baja\n4. Lista Activos y Asignacion\n5. Lista Historial de Mov. de Activo\n6. Movimiento De Activos\n7. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
-    if (op==1):
+    if (op=='1'):
         pass
-    elif (op==2):
+    elif (op=='2'):
         pass
-    elif (op==3):
+    elif (op=='3'):
         pass
-    elif (op==4):
+    elif (op=='4'):
         pass
-    elif (op==5):
+    elif (op=='5'):
         pass
-    elif (op==6):
+    elif (op=='6'):
         pass
-    elif (op==7):
+    elif (op=='7'):
         print('Volviendo al menu principal...')
         os.system('pause')
         mainmenu()
@@ -160,19 +153,18 @@ def menuMOVActivos():  #menu de movimiento de activos
     ++++++++++++++++++++++++++++++
     """
     print(titulo)
-    lstOp=[1,2,3,4,5]
     opciones = '1. Retorno de activo\n2. Dar de Baja Activo\n3. Cambiar Asignacion de Activo\n4. Envia a Garantia Activo\n5. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
-    if (op==1):
+    if (op=='1'):
         pass
-    elif(op==2):
+    elif(op=='2'):
         pass
-    elif(op==3):
+    elif(op=='3'):
         pass
-    elif(op==4):
+    elif(op=='4'):
         pass
-    elif(op==5):
+    elif(op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')
         mainmenu()
