@@ -1,4 +1,5 @@
 from corefiles import checkFile
+from modules.menus import mainmenu
 
 inventario = {
     'activos': {},
@@ -9,4 +10,4 @@ inventario = {
 data = checkFile('data.json', inventario)
 
 if __name__ == '__main__':
-    pass
+    mainmenu(data)
