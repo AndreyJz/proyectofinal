@@ -16,6 +16,24 @@ def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     else:
         os.system("pause")
 
+def Try(type, msg):
+    while True:
+        try:
+            Msg = input(msg)
+            if(type == 'int'):
+                Msg = int(Msg)
+            if(type == 'float'):
+                Msg = float(Msg)
+            if(type == 'bool'):
+                Msg = bool(Msg)
+            if(type == 'str'):
+                Msg = str(Msg)
+        except ValueError:
+            print('El dato ingresado no esta permitido')
+        else:
+            if(type == 'str')and(len(data)):
+                pass
+
 def checkFile(archivo:str, data): #comprueba si el archivo existe
     if(os.path.isfile(BASE+ archivo)): 
         with open(BASE + archivo, 'r') as br: #si existe lo carga

@@ -25,13 +25,13 @@ def EditZona(dataInventario):
             op = input('Ingrese el numero de la seccion que quiere editar <-> ')
             editar = dataInventario['personal'][codCampus]
             if (op=='1'):
-                nuevoValor= int(input('Ingrese el nuevo valor para el Id <-> '))
+                nuevoValor= int(input('Ingrese el nuevo valor para el Nro de la zona <-> '))
                 editar['NroZona'] = nuevoValor
             elif (op=='2'):
-                nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                nuevoValor= str(input('Ingrese el nuevo valor para el nombre de la zona <-> '))
                 editar['nombreZona'] = nuevoValor
             elif (op=='3'):
-                nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                nuevoValor= str(input('Ingrese el nuevo valor para la capacidad total <-> '))
                 editar['totalCapacidadd'] = nuevoValor
             elif (op=='4'):
                 break

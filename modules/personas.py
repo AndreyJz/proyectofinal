@@ -37,10 +37,10 @@ def EditPersona(dataInventario):
                 nuevoValor= int(input('Ingrese el nuevo valor para el Id <-> '))
                 editar['id'] = nuevoValor
             elif (op=='2'):
-                nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                nuevoValor= str(input('Ingrese el nuevo valor para el nombre <-> '))
                 editar['nombre'] = nuevoValor
             elif (op=='3'):
-                nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                nuevoValor= str(input('Ingrese el nuevo valor para el email <-> '))
                 editar['email'] = nuevoValor
             elif (op=='4'):
                 opciones = '1. Movil\n2. Casa\n3. Personal\n4. Oficina\n5. Salir'
@@ -48,16 +48,16 @@ def EditPersona(dataInventario):
                 op = input('Ingrese el numero de la seccion que quiere editar <-> ')
                 editar = dataInventario['personal'][codCampus]['telefono']
                 if (op == '1'):
-                    nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                    nuevoValor= str(input('Ingrese el nuevo valor para el movil <-> '))
                     editar['movil'] = nuevoValor
                 elif (op == '2'):
-                    nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                    nuevoValor= str(input('Ingrese el nuevo valor para el Nro de Casa <-> '))
                     editar['casa'] = nuevoValor
                 elif (op == '3'):
-                    nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                    nuevoValor= str(input('Ingrese el nuevo valor para el Nro personal <-> '))
                     editar['personal'] = nuevoValor
                 elif (op == '4'):
-                    nuevoValor= str(input('Ingrese el nuevo valor para el Id <-> '))
+                    nuevoValor= str(input('Ingrese el nuevo valor para el Nro de Oficina <-> '))
                     editar['oficina'] = nuevoValor
             elif (op=='5'):
                 break
