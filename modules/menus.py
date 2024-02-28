@@ -1,40 +1,51 @@
+from modules.Activos import AddActivo, EditActivo, DeleteActivo
+from corefiles import borrar_pantalla, pausar_pantalla, updateData
 import os
 
-def mainmenu(): #menu principal
-    titulo = """
-    +++++++++++++++++++++++++++++++++++++++++
-    [ SISTEMA G&C DE INVENTARIO CAMPUSLANDS ]
-    +++++++++++++++++++++++++++++++++++++++++
-    """
-    print(titulo)
-    lstOp=[1,2,3,4,5,6,7]
-    opciones = '1. Activos\n2. Personal\n3. Zonas\n4. Asignacion de activos\n5. Reportes\n6. Movimiento De Activos\n7. Salir'
-    print(opciones)
-    op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
-    if (op==1):
-        opcion='ACTIVOS'
-        menuAPZ(opcion)
-    elif (op==2):
-        opcion='PERSONAL'
-        menuAPZ(opcion)
-    elif (op==3):
-        opcion='ZONAS'
-        menuAPZ(opcion)
-    elif (op==4):
-        menuAsigActivos()
-    elif (op==5):
-        menuRep()
-    elif (op==6):
-        menuMOVActivos()
-    elif (op==7):
-        print('Gracias por usar el programa, vuelva pronto! :D')
-        os.system('pause')
-    else:
-        print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')
-        mainmenu()
+
+def mainmenu(data): #menu principal
+    borrar_pantalla()
+    
+    global inventario
+    inventario = data
+    
+    issAppRunning = True
+    while issAppRunning:
+        titulo = """
+        +++++++++++++++++++++++++++++++++++++++++
+        [ SISTEMA G&C DE INVENTARIO CAMPUSLANDS ]
+        +++++++++++++++++++++++++++++++++++++++++
+        """
+        print(titulo)
+        opciones = '1. Activos\n2. Personal\n3. Zonas\n4. Asignacion de activos\n5. Reportes\n6. Movimiento De Activos\n7. Salir'
+        print(opciones)
+        op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
+        if (op=='1'):
+            opcion='ACTIVOS'
+            menuAPZ(opcion)
+        elif (op=='2'):
+            opcion='PERSONAL'
+            menuAPZ(opcion)
+        elif (op=='3'):
+            opcion='ZONAS'
+            menuAPZ(opcion)
+        elif (op=='4'):
+            menuAsigActivos()
+        elif (op=='5'):
+            menuRep()
+        elif (op=='6'):
+            menuMOVActivos()
+        elif (op=='7'):
+            print('Gracias por usar el programa, vuelva pronto! :D')
+            os.system('pause')
+            issAppRunning= False
+        else:
+            print('El valor ingresado no esta asociado a una seccion...')
+            os.system('pause')
+            mainmenu(data)
 
 def menuAPZ(opcion): #menu (agregar contenido)
+    isValueTrue = True
     titulo = f"""
     +++++++++++++++++
     [ MENU {opcion} ]
@@ -45,23 +56,48 @@ def menuAPZ(opcion): #menu (agregar contenido)
     opciones = '1. Agregar\n2. Editar\n3. Eliminar\n4. Buscar\n5. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
-    if (op==1):
-        pass
-    if (op==2):
-        pass
-    if (op==3):
-        pass
-    if (op==4):
-        pass
-    if (op==5):
+    if (op=='1'):
+        if opcion == 'ACTIVOS':
+            AddActivo(inventario)
+            updateData('data.json', inventario)
+        elif opcion == 'PERSONAL':
+            pass
+        else:
+            pass
+    elif (op=='2'):
+        if opcion == 'ACTIVOS':
+            EditActivo(inventario)
+            updateData('data.json', inventario)
+        elif opcion == 'PERSONAL':
+            pass
+        else:
+            pass
+    elif (op=='3'):
+        if opcion == 'ACTIVOS':
+            DeleteActivo(inventario)
+            updateData('data.json', inventario)
+        elif opcion == 'PERSONAL':
+            pass
+        else:
+            pass
+    elif (op=='4'):
+        if opcion == 'ACTIVOS':
+            pass
+        elif opcion == 'PERSONAL':
+            pass
+        else:
+            pass
+    elif (op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')
-        mainmenu()
+        mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
         os.system('pause')
         menuAPZ(opcion)
 
+
+    
 def menuAsigActivos(): #menu de asignacion de activos
     titulo = """
     ++++++++++++++++++++++++++++++
@@ -143,5 +179,6 @@ def menuMOVActivos():  #menu de movimiento de activos
         mainmenu()
     else:
         print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')
+        os.system('pause')   
         menuMOVActivos()
+        

@@ -31,11 +31,3 @@ def updateData(archivo:str,data): #actualiza el diccionario
         json.dump(data,rwf,indent=4)
         rwf.truncate() #se asegura de que no queden archivos antiguos
         
-def Search(inventario = dict): #busca el archivo para trabajar con este (falta actualizar)
-    nit = str(input(')_'))
-    for idx, (key, value) in enumerate(inventario.items()):
-        if value['nit'] == nit:
-            return key
-        elif idx == len(inventario)-1:
-            print('nombre no encontrado')
-            pausar_pantalla()
