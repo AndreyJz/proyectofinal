@@ -3,7 +3,7 @@ from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Searc
 import modules.personas as p
 import modules.zonas as z
 import os
-
+from tabulate import tabulate
 
 def mainmenu(data): #menu principal
     borrar_pantalla()
@@ -38,12 +38,12 @@ def mainmenu(data): #menu principal
         elif (op=='6'):
             menuMOVActivos()
         elif (op=='7'):
-            print('Gracias por usar el programa, vuelva pronto! :D')
-            os.system('pause')
+            print('Gracias por usar el programa, vuelva pronto!')
+            pausar_pantalla()
             issAppRunning= False
         else:
             print('El valor ingresado no esta asociado a una seccion...')
-            os.system('pause')
+            pausar_pantalla()
             mainmenu(data)
 
 def menuAPZ(opcion): #menu (agregar contenido)
@@ -81,7 +81,9 @@ def menuAPZ(opcion): #menu (agregar contenido)
     elif (op=='4'):
         print('Ingrese el numero de identificacion del objeto a buscar <-> ')
         buscado=Search(inventario,opcion)
-        print(inventario[opcion][buscado])
+        tabla=[]
+        tabla.append(inventario['asignado'][buscado])
+        print(tabulate(tabla,headers='keys',tablefmt='grid'))
         pausar_pantalla()
     elif (op=='5'):
         print('Volviendo al menu principal...')
@@ -110,7 +112,9 @@ def menuAsigActivos(): #menu de asignacion de activos
     elif(op=='2'):
         print('Ingrese el numero de identificacion del objeto a buscar <-> ')
         buscado=Search(inventario,opcion='asigancion')
-        print(inventario['asignado'][buscado])
+        tabla=[]
+        tabla.append(inventario['asignado'][buscado])
+        print(tabulate(tabla,headers='keys',tablefmt='grid'))
         pausar_pantalla()
     elif(op=='3'):
         print('Volviendo al menu principal...')
@@ -165,11 +169,11 @@ def menuMOVActivos():  #menu de movimiento de activos
     if (op=='1'):
         pass
     elif(op=='2'):
-        pass
+        p.DardeBaja(inventario)
     elif(op=='3'):
-        pass
+        p.ChangeAsig(inventario)
     elif(op=='4'):
-        pass
+        p.GarantiaAct(inventario)
     elif(op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')

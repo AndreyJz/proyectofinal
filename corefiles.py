@@ -16,21 +16,40 @@ def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     else:
         os.system("pause")
 
-# def Try(type, msg):
-#     while True:
-#         try:
-#             Msg = input(msg)
-#             if(type == 'int'):
-#                 Msg = int(Msg)
-#             if(type == 'float'):
-#                 Msg = float(Msg)
-#             if(type == 'str'):
-#                 Msg = str(Msg)
-#         except ValueError:
-#             print('El dato ingresado no esta permitido')
-#         else:
-#             if(type == 'str')and(len(data)):
-#                 pass
+def Try(type, msg, inventario, seccion):
+    while True:
+        borrar_pantalla()
+        try:
+            Msg = input(msg)
+            if(type == 'int'):
+                Msg = int(Msg)
+            if(type == 'float'):
+                Msg = float(Msg)
+            if(type == 'str'):
+                Msg = str(Msg)
+        except ValueError:
+            print('El dato ingresado no esta permitido')
+        else:
+            if(type == 'str')and(len(Msg)<0):
+                print('Debes ingresar un valor...')
+                if len(inventario) == 0:
+                    print('No has ingresado ninguna persona...')
+                    pausar_pantalla()
+                else:
+                    if Msg not in inventario:
+                        if seccion == 'agregar':
+                            return Msg
+                            False
+                        else:
+                            print('El valor ingresado no esta registrado')
+                            pausar_pantalla()
+                    else:
+                        if seccion == 'agregar':
+                            print('El valor ingresado ya esta registrado')
+                            pausar_pantalla()
+                        else:
+                            return Msg
+                            False
 
 def checkFile(archivo:str, data): #comprueba si el archivo existe
     if(os.path.isfile(BASE+ archivo)): 
@@ -48,60 +67,48 @@ def updateData(archivo:str,data): #actualiza el diccionario
         rwf.truncate() #se asegura de que no queden archivos antiguos
 
 def delOp(dataInventario,opcion):
-    if dataInventario[opcion]:
-        borrar_pantalla()
-        if opcion == 'activo':
-            delVal = input("Ingrese el Codigo de campus del Activo que quiere borrar <-> ")
-        elif opcion == 'personal':
-            delVal = input("Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ")
-        elif opcion == 'zonas':
-            delVal = input("Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ")
+    borrar_pantalla()
+    if opcion == 'activo':
+        delVal = Try('str', "Ingrese el Codigo de campus del Activo que quiere borrar <-> ", dataInventario[opcion], '')
+    elif opcion == 'personas':
+        delVal = Try('int', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion], '')
+    elif opcion == 'zonas':
+        delVal = Try('int', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion], '')
 
-        if delVal not in dataInventario[opcion].items():
-            print('El codigo ingresado no esta registrado...')
-            os.system('pause')
-            delOp()
-        dataInventario[opcion].pop(delVal)
-        updateData('inventario.json',dataInventario)
-        print('Ha sido eliminado correctamente')
-        pausar_pantalla()
-    else:
-        print(f'No has ingresado algun {opcion}...')
-        os.system('pause')
+    dataInventario[opcion].pop(delVal)
+    updateData('inventario.json',dataInventario)
+    print('Ha sido eliminado correctamente')
+    pausar_pantalla()
 
 
 def Search(inventario: dict, opcion: str): 
-    if inventario[opcion]:
-        isValueTrue = True
-        while isValueTrue:
-            codCampus = str(input(')_'))
-            for idx, (key, value) in enumerate(inventario[opcion].items()): #Itera sobre el diccionario seleccionado y idx imprime un mensaje de error
-                if opcion == 'activos':
-                    if value['codCampus'] == codCampus:
-                        return key
-                    elif len(inventario[opcion])-1 == idx:
-                        print('nombre no encontrado, ingreselo de nuevo')
-                        pausar_pantalla()
-                elif opcion == 'personas':
-                    if value['id'] == codCampus:
-                        return key
-                    elif len(inventario[opcion])-1 == idx:
-                        print('Id no encontrado, ingreselo de nuevo')
-                        pausar_pantalla()
-                elif opcion == 'zonas':
-                    if value['NroZona'] == codCampus:
-                        return key
-                    elif len(inventario[opcion])-1 == idx:
-                        print('Nro de Zona no encontrado, ingreselo de nuevo')
-                        pausar_pantalla()
-                elif opcion == 'asignacion':
-                    if value['NroAsig'] == codCampus:
-                        return key
-                    elif len(inventario[opcion])-1 == idx:
-                        print('Nro de Asignacion no encontrado, ingreselo de nuevo')
-                        pausar_pantalla()
-    else:
-        print(f'No has ingresado ningun dato a la seccion {opcion}')
-        pausar_pantalla()
-        return
+    isValueTrue = True
+    while isValueTrue:
+        codCampus = str(input(')_'))
+        for idx, (key, value) in enumerate(inventario[opcion].items()): #Itera sobre el diccionario seleccionado y idx imprime un mensaje de error
+            if opcion == 'activos':
+                if value['codCampus'] == codCampus:
+                    return key
+                elif len(inventario[opcion])-1 == idx:
+                    print('nombre no encontrado, ingreselo de nuevo')
+                    pausar_pantalla()
+            elif opcion == 'personas':
+                if value['id'] == codCampus:
+                    return key
+                elif len(inventario[opcion])-1 == idx:
+                    print('Id no encontrado, ingreselo de nuevo')
+                    pausar_pantalla()
+            elif opcion == 'zonas':
+                if value['NroZona'] == codCampus:
+                    return key
+                elif len(inventario[opcion])-1 == idx:
+                    print('Nro de Zona no encontrado, ingreselo de nuevo')
+                    pausar_pantalla()
+            elif opcion == 'asignacion':
+                if value['NroAsig'] == codCampus:
+                    return key
+                elif len(inventario[opcion])-1 == idx:
+                    print('Nro de Asignacion no encontrado, ingreselo de nuevo')
+                    pausar_pantalla()
+
             
