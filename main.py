@@ -8,8 +8,8 @@ inventario = {
     'asignacion': {}
 }
 data = checkFile('data.json', inventario)
-# AddActivoFromCampus(inventario)
-# updateData('data.json', inventario)
+#AddActivoFromCampus(inventario)
+#pdateData('data.json', inventario)
 
 if __name__ == '__main__':
     mainmenu(data)

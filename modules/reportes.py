@@ -1,4 +1,4 @@
-from corefiles import borrar_pantalla, pausar_pantalla
+from corefiles import borrar_pantalla, pausar_pantalla, Search
 from tabulate import tabulate
 
 def ListarActivos(inventario: dict):
@@ -77,6 +77,24 @@ def listarDadoDeBajo(inventario):
     for idx, i in enumerate(range(0, len(Activos), lines_per_page)):
         subset_data = Activos[i:i + lines_per_page]
         totalPag = len(Activos)//lines_per_page
+        borrar_pantalla()
+        print(tabulate(subset_data, headers="keys", tablefmt="grid", floatfmt=(".0f")))
+        print(f'pagina {idx + 1} de {totalPag + 1}')
+        pausar_pantalla()
+
+def listarRepYAct(inventario = dict):
+    pass
+
+def ListarActivoHist(inventario: dict):
+    historialActivo = []
+    print('ingresa el codCampus del que desees ver el historial')
+    codCampus = Search(inventario, 'activos')
+    for key, values in inventario['activos'][codCampus]['historialActivo'].items():
+        historialActivo.append(values)
+    lines_per_page = 20
+    for idx, i in enumerate(range(0, len(historialActivo), lines_per_page)):
+        subset_data = historialActivo[i:i + lines_per_page]
+        totalPag = len(historialActivo)//lines_per_page
         borrar_pantalla()
         print(tabulate(subset_data, headers="keys", tablefmt="grid", floatfmt=(".0f")))
         print(f'pagina {idx + 1} de {totalPag + 1}')

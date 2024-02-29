@@ -1,6 +1,6 @@
-from modules.activos import AddActivo, EditActivo
+from modules.Activos import AddActivo, EditActivo
 from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
-from modules.reportes import ListarActivos, ListarCategoria, listarDadoDeBajo
+from modules.reportes import ListarActivos, ListarCategoria, listarDadoDeBajo,ListarActivoHist
 import modules.personas as p
 import modules.zonas as z
 import os
@@ -122,7 +122,7 @@ def menuRep(): #menu de reportes
     +++++++++++++++++
     """
     print(titulo)
-    opciones = '1. Lista Activos\n2. Lista Activos por Categoria\n3. Lista Activos dados de Baja\n4. Lista Activos y Asignacion\n5. Lista Historial de Mov. de Activo\n6. Movimiento De Activos\n7. Regresar al Menu Principal\n'
+    opciones = '1. Lista Activos\n2. Lista Activos por Categoria\n3. Lista Activos dados de Baja\n4. Lista Activos y Asignacion\n5. Lista Historial de Mov. de Activo\n6. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
@@ -134,10 +134,8 @@ def menuRep(): #menu de reportes
     elif (op=='4'):
         pass
     elif (op=='5'):
-        pass
+        ListarActivoHist(inventario)
     elif (op=='6'):
-        pass
-    elif (op=='7'):
         print('Volviendo al menu principal...')
         os.system('pause')
         mainmenu(inventario)

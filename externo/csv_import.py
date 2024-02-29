@@ -1,7 +1,4 @@
 from csv import reader
-from datetime import datetime
-
-fechaActual = str(datetime.now())
 
 def AddActivoFromCampus(inventario: dict):
     data = []
@@ -10,7 +7,7 @@ def AddActivoFromCampus(inventario: dict):
         for row in lector:
             elementos = row[0].split(',')
             data.append(elementos)
-        for idx, item in enumerate(data):
+        for item in data:
             valor = float(item[6])
             activoCampus= {
             'codTransaccion': item[0],
@@ -25,20 +22,7 @@ def AddActivoFromCampus(inventario: dict):
             'nroSerial': item[9],
             'empResponsable': item[10],
             'Estado': item[11],
-            'historialActivo': {
-                'Nrold': '001',
-                'fecha': fechaActual,
-                'tipoMOv': 'asignacion',
-                'idRespMOv': ''
-                }  
-            }
-            nroAsig = str(idx).zfill(3)
-            AsignacionCampus = {
-                'nroAsignacion':  nroAsig,
-                'fechaAsignacion': fechaActual,
-                'tipoAsignacion': 'zona',
-                'asignadoA': item[12],
-                'activo': item[2]
+            'historialActivo': {}  
             }
             inventario['activos'].update({activoCampus['codCampus']: activoCampus})
-            inventario['asignacion'].update({nroAsig: AsignacionCampus})
+            

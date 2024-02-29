@@ -44,7 +44,7 @@ def AddActivo (inventario: dict):
     borrar_pantalla()
     valor = tryValueError()
     proveedor = str(input('ingrese el proveedor'))
-    nroSerial = tryValueError()
+    nroSerial = str(input('ingrese el numero serial'))
     empResponsable = str(input('ingrese cual es la empresa responsable :'))
     Estado = 'no asignado'
     historialActivo = {}
