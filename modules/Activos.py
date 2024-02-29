@@ -1,4 +1,4 @@
-from corefiles import pausar_pantalla, borrar_pantalla, SearchActivos
+from corefiles import pausar_pantalla, borrar_pantalla, Search
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
 categorias = ['Equipo de computo', 'Electrodomestido', 'juego']
@@ -69,7 +69,7 @@ def AddActivo (inventario: dict):
 def EditActivo(inventario):
     if inventario['activos']:
         print('ingresa el codigo de campus del activo que desees editar :')
-        codCampus= SearchActivos(inventario, 'activos')
+        codCampus= Search(inventario, 'activos')
         isValueTrue = True
         while isValueTrue:
             borrar_pantalla()
@@ -120,7 +120,7 @@ def EditActivo(inventario):
 #     if inventario['activos']:
 #         borrar_pantalla()
 #         print('ingrese el codigo de campus del activo que desea borrar')
-#         codCampus= SearchActivos(inventario, 'activos')
+#         codCampus= Search(inventario, 'activos')
 #         del(inventario['activos'][codCampus])
 #         print('el activo ha sido eliminado correctamente')
 #         pausar_pantalla()

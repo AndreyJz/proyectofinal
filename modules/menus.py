@@ -1,7 +1,8 @@
-from modules.Activos import AddActivo, EditActivo, DeleteActivo
-from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOP, Search
-import personas as p
-import zonas as z
+from modules.activos import AddActivo, EditActivo
+from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
+from modules.reportes import ListarActivos
+import modules.personas as p
+import modules.zonas as z
 import os
 
 
@@ -77,7 +78,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
             z.EditZona(inventario)
             updateData('data.json', inventario)
     elif (op=='3'):
-        delOP(inventario,opcion)
+        delOp(inventario,opcion)
     elif (op=='4'):
         Search(inventario,opcion)
     elif (op=='5'):
@@ -126,7 +127,7 @@ def menuRep(): #menu de reportes
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
-        pass
+        ListarActivos(inventario)
     elif (op=='2'):
         pass
     elif (op=='3'):
@@ -140,7 +141,7 @@ def menuRep(): #menu de reportes
     elif (op=='7'):
         print('Volviendo al menu principal...')
         os.system('pause')
-        mainmenu()
+        mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
         os.system('pause')
