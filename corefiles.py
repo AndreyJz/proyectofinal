@@ -16,23 +16,21 @@ def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     else:
         os.system("pause")
 
-def Try(type, msg):
-    while True:
-        try:
-            Msg = input(msg)
-            if(type == 'int'):
-                Msg = int(Msg)
-            if(type == 'float'):
-                Msg = float(Msg)
-            if(type == 'bool'):
-                Msg = bool(Msg)
-            if(type == 'str'):
-                Msg = str(Msg)
-        except ValueError:
-            print('El dato ingresado no esta permitido')
-        else:
-            if(type == 'str')and(len(data)):
-                pass
+# def Try(type, msg):
+#     while True:
+#         try:
+#             Msg = input(msg)
+#             if(type == 'int'):
+#                 Msg = int(Msg)
+#             if(type == 'float'):
+#                 Msg = float(Msg)
+#             if(type == 'str'):
+#                 Msg = str(Msg)
+#         except ValueError:
+#             print('El dato ingresado no esta permitido')
+#         else:
+#             if(type == 'str')and(len(data)):
+#                 pass
 
 def checkFile(archivo:str, data): #comprueba si el archivo existe
     if(os.path.isfile(BASE+ archivo)): 
@@ -84,7 +82,7 @@ def Search(inventario: dict, opcion: str):
                     elif len(inventario[opcion])-1 == idx:
                         print('nombre no encontrado, ingreselo de nuevo')
                         pausar_pantalla()
-                elif opcion == 'personal':
+                elif opcion == 'personas':
                     if value['id'] == codCampus:
                         return key
                     elif len(inventario[opcion])-1 == idx:
@@ -103,7 +101,7 @@ def Search(inventario: dict, opcion: str):
                         print('Nro de Asignacion no encontrado, ingreselo de nuevo')
                         pausar_pantalla()
     else:
-        print('no has ingresado ningun activo')
+        print(f'No has ingresado ningun dato a la seccion {opcion}')
         pausar_pantalla()
         return
             

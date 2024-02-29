@@ -6887,9 +6887,41 @@
             "empResponsable": "CK440U-10656",
             "Estado": "Campuslands",
             "historialActivo": {}
+        },
+        "3": {
+            "codTransaccion": "001",
+            "nroFormulario": "002",
+            "codCampus": "3",
+            "marca": "Lg",
+            "categoria": "Equipo de computo",
+            "tipo": "aire acondicionado",
+            "valor": 6.0,
+            "proveedor": "petete",
+            "nroSerial": 5.0,
+            "empResponsable": "Campus",
+            "Estado": "no asignado",
+            "historialActivo": {}
         }
     },
-    "personas": {},
-    "zonas": {},
+    "personas": {
+        "123": {
+            "id": "123",
+            "nombre": "andrey",
+            "email": "petete@gmail.com",
+            "telefono": {
+                "movil": "4253",
+                "casa": "985",
+                "personal": "12343",
+                "oficina": "564"
+            }
+        }
+    },
+    "zonas": {
+        "45": {
+            "NroZona": "45",
+            "nombreZona": "Sputnik",
+            "totalCapacidad": "33"
+        }
+    },
     "asignacion": {}
 }

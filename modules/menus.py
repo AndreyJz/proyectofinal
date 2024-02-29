@@ -1,7 +1,7 @@
-from modules.Activos import AddActivo, EditActivo, DeleteActivo
-from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOP, Search
-import personas as p
-import zonas as z
+from modules.Activos import AddActivo, EditActivo
+from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
+import modules.personas as p
+import modules.zonas as z
 import os
 
 
@@ -26,7 +26,7 @@ def mainmenu(data): #menu principal
             opcion='activos'
             menuAPZ(opcion)
         elif (op=='2'):
-            opcion='personal'
+            opcion='personas'
             menuAPZ(opcion)
         elif (op=='3'):
             opcion='zonas'
@@ -49,7 +49,7 @@ def mainmenu(data): #menu principal
 def menuAPZ(opcion): #menu (agregar contenido)
     titulo = f"""
     +++++++++++++++++
-    [ MENU {opcion.upper} ]
+    [ MENU {opcion.upper()} ]
     +++++++++++++++++
     """
     print(titulo)
@@ -60,7 +60,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
         if opcion == 'activos':
             AddActivo(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'personal':
+        elif opcion == 'personas':
             p.AddPersona(inventario)
             updateData('data.json', inventario)
         elif opcion == 'zonas':
@@ -70,16 +70,19 @@ def menuAPZ(opcion): #menu (agregar contenido)
         if opcion == 'activos':
             EditActivo(inventario)
             updateData('data.json', inventario)
-        elif opcion == 'personal':
+        elif opcion == 'personas':
             p.EditPersona(inventario)
             updateData('data.json', inventario)
         elif opcion == 'zonas':
             z.EditZona(inventario)
             updateData('data.json', inventario)
     elif (op=='3'):
-        delOP(inventario,opcion)
+        delOp(inventario,opcion)
     elif (op=='4'):
-        Search(inventario,opcion)
+        print('Ingrese el numero de identificacion del objeto a buscar <-> ')
+        buscado=Search(inventario,opcion)
+        print(inventario[opcion][buscado])
+        pausar_pantalla()
     elif (op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')
@@ -105,7 +108,10 @@ def menuAsigActivos(): #menu de asignacion de activos
         p.AddAsig(inventario)
         updateData('data.json', inventario)
     elif(op=='2'):
-        Search(inventario,opcion='asigancion')
+        print('Ingrese el numero de identificacion del objeto a buscar <-> ')
+        buscado=Search(inventario,opcion='asigancion')
+        print(inventario['asignado'][buscado])
+        pausar_pantalla()
     elif(op=='3'):
         print('Volviendo al menu principal...')
         os.system('pause')
