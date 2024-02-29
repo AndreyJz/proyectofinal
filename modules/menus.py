@@ -1,19 +1,18 @@
 from modules.activos import AddActivo, EditActivo
 from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
-from modules.reportes import ListarActivos
+from modules.reportes import ListarActivos, ListarCategoria, listarDadoDeBajo
 import modules.personas as p
 import modules.zonas as z
 import os
 
 
 def mainmenu(data): #menu principal
-    borrar_pantalla()
-    
     global inventario
     inventario = data
     
     issAppRunning = True
     while issAppRunning:
+        borrar_pantalla()
         titulo = """
         +++++++++++++++++++++++++++++++++++++++++
         [ SISTEMA G&C DE INVENTARIO CAMPUSLANDS ]
@@ -129,9 +128,9 @@ def menuRep(): #menu de reportes
     if (op=='1'):
         ListarActivos(inventario)
     elif (op=='2'):
-        pass
+        ListarCategoria(inventario)
     elif (op=='3'):
-        pass
+        listarDadoDeBajo(inventario)
     elif (op=='4'):
         pass
     elif (op=='5'):
