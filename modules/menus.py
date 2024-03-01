@@ -2,7 +2,7 @@ from modules.Activos import AddActivo, EditActivo
 from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
 import modules.personas as p
 import modules.zonas as z
-import os
+import modules.asignaciones as a
 from tabulate import tabulate
 
 def mainmenu(data): #menu principal
@@ -87,11 +87,11 @@ def menuAPZ(opcion): #menu (agregar contenido)
         pausar_pantalla()
     elif (op=='5'):
         print('Volviendo al menu principal...')
-        os.system('pause')
+        pausar_pantalla()
         mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')
+        pausar_pantalla()
         menuAPZ(opcion)
 
 
@@ -107,7 +107,7 @@ def menuAsigActivos(): #menu de asignacion de activos
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
-        p.AddAsig(inventario)
+        a.AddAsig(inventario)
         updateData('data.json', inventario)
     elif(op=='2'):
         print('Ingrese el numero de identificacion del objeto a buscar <-> ')
@@ -118,11 +118,11 @@ def menuAsigActivos(): #menu de asignacion de activos
         pausar_pantalla()
     elif(op=='3'):
         print('Volviendo al menu principal...')
-        os.system('pause')
+        pausar_pantalla()
         mainmenu()
     else:
         print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')
+        pausar_pantalla()
         menuAsigActivos()
 
 def menuRep(): #menu de reportes
@@ -149,11 +149,11 @@ def menuRep(): #menu de reportes
         pass
     elif (op=='7'):
         print('Volviendo al menu principal...')
-        os.system('pause')
+        pausar_pantalla()
         mainmenu()
     else:
         print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')
+        pausar_pantalla()
         menuRep()
 
 def menuMOVActivos():  #menu de movimiento de activos
@@ -167,19 +167,23 @@ def menuMOVActivos():  #menu de movimiento de activos
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
-        pass
+        a.ReturnAct(inventario)
+        updateData('data.json', inventario)
     elif(op=='2'):
-        p.DardeBaja(inventario)
+        a.DardeBaja(inventario)
+        updateData('data.json', inventario)
     elif(op=='3'):
-        p.ChangeAsig(inventario)
+        a.ChangeAsig(inventario)
+        updateData('data.json', inventario)
     elif(op=='4'):
-        p.GarantiaAct(inventario)
+        a.GarantiaAct(inventario)
+        updateData('data.json', inventario)
     elif(op=='5'):
         print('Volviendo al menu principal...')
-        os.system('pause')
+        pausar_pantalla()
         mainmenu()
     else:
         print('El valor ingresado no esta asociado a una seccion...')
-        os.system('pause')   
+        pausar_pantalla() 
         menuMOVActivos()
         

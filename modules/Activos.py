@@ -1,4 +1,4 @@
-from corefiles import pausar_pantalla, borrar_pantalla, Search
+from corefiles import pausar_pantalla, borrar_pantalla, Search,Try
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
 categorias = ['Equipo de computo', 'Electrodomestido', 'juego']
@@ -37,15 +37,15 @@ def tryValueError():
 def AddActivo (inventario: dict):
     codTransaccion = str(input('ingrese el codigo de transaccion :'))
     nroFormulario = str(input('ingrese el numero de formulario :'))
-    codCampus = str(input('ingrese el codigo de campus :'))
+    codCampus = Try('str','ingrese el codigo de campus :',inventario,'agregar')
     marca = MCT(marcas)
     categoria = MCT(categorias)
     tipo = MCT(tipos)
     borrar_pantalla()
     valor = tryValueError()
-    proveedor = str(input('ingrese el proveedor'))
+    proveedor = Try('str','ingrese el proveedor',inventario,'agregar')
     nroSerial = tryValueError()
-    empResponsable = str(input('ingrese cual es la empresa responsable :'))
+    empResponsable = Try('str','ingrese cual es la empresa responsable :',inventario,'agregar')
     Estado = 'no asignado'
     historialActivo = {}
     

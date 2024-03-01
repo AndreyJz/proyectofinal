@@ -1,10 +1,10 @@
 import corefiles as cf
-
+from corefiles import Try
 
 def AddZona(dataInventario):
-    NroZona = input('Ingrese el Nro de la Zona <-> ')
-    nombreZona = input('Ingrese el Nombre de la Zona <-> ')
-    totalCapacidad = input('Ingrese el capacidad total de la Zona <-> ')
+    NroZona = Try('int','Ingrese el Nro de la Zona <-> ',dataInventario,'agregar')
+    nombreZona = Try('str','Ingrese el Nombre de la Zona <-> ',dataInventario,'agregar')
+    totalCapacidad = Try('int','Ingrese el capacidad total de la Zona <-> ',dataInventario,'agregar')
     Zone = {
         'NroZona':NroZona,
         'nombreZona':nombreZona,
@@ -15,7 +15,7 @@ def AddZona(dataInventario):
 
 def EditZona(dataInventario):
     if dataInventario['zonas']:
-        print('ingresa el Nro de Zona que desees editar :')
+        print('Ingresa el Nro de Zona que desees editar <-> ')
         codCampus= cf.Search(dataInventario, 'zonas')
         isValueTrue = True
         while isValueTrue:
@@ -25,13 +25,13 @@ def EditZona(dataInventario):
             op = input('Ingrese el numero de la seccion que quiere editar <-> ')
             editar = dataInventario['personal'][codCampus]
             if (op=='1'):
-                nuevoValor= int(input('Ingrese el nuevo valor para el Nro de la zona <-> '))
+                nuevoValor= Try('int','Ingrese el nuevo valor para el Nro de la zona <-> ',dataInventario,'')
                 editar['NroZona'] = nuevoValor
             elif (op=='2'):
-                nuevoValor= str(input('Ingrese el nuevo valor para el nombre de la zona <-> '))
+                nuevoValor= Try('str','Ingrese el nuevo valor para el nombre de la zona <-> ',dataInventario,'')
                 editar['nombreZona'] = nuevoValor
             elif (op=='3'):
-                nuevoValor= str(input('Ingrese el nuevo valor para la capacidad total <-> '))
+                nuevoValor= Try('str','Ingrese el nuevo valor para la capacidad total <-> ',dataInventario,'')
                 editar['totalCapacidadd'] = nuevoValor
             elif (op=='4'):
                 break

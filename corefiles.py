@@ -84,7 +84,7 @@ def delOp(dataInventario,opcion):
 def Search(inventario: dict, opcion: str): 
     isValueTrue = True
     while isValueTrue:
-        codCampus = str(input(')_'))
+        codCampus = Try('str', ')_', inventario,'')
         for idx, (key, value) in enumerate(inventario[opcion].items()): #Itera sobre el diccionario seleccionado y idx imprime un mensaje de error
             if opcion == 'activos':
                 if value['codCampus'] == codCampus:
