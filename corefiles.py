@@ -59,11 +59,25 @@ def delOp(dataInventario,opcion):
     elif opcion == 'zonas':
         delVal = Try('str', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion])
 
-    dataInventario[opcion].pop(delVal)
-    updateData('data.json',dataInventario)
-    print('Ha sido eliminado correctamente')
-    pausar_pantalla()
-
+    for key,value in dataInventario['asignacion'].items():
+        
+        if delVal in value['activos']:
+            print('No se puede eliminar, porque se encuentra asignado a una persona o zona')
+            pausar_pantalla()
+        else:
+            dataInventario[opcion].pop(delVal)
+            updateData('data.json',dataInventario)
+            print('Ha sido eliminado correctamente')
+            pausar_pantalla()
+        
+    if len(dataInventario['asignacion'][delVal]['activos']) != 0:
+        print('No se puede eliminar, porque tiene activos asignados...')
+        pausar_pantalla()
+    else:
+        dataInventario[opcion].pop(delVal)
+        updateData('data.json',dataInventario)
+        print('Ha sido eliminado correctamente')
+        pausar_pantalla()
 
 def Search(inventario: dict, opcion: str): 
     isValueTrue = True

@@ -58,55 +58,72 @@ def AddAsig(dataInventario):
     dataInventario['activos'][Activo]['historialActivo'].update({NroAsig:History})
 
 def ReturnAct(inventario):
+    print('Ingrese el id del activo que quiere retornar de reparacion ')
     codCampus= cf.Search(inventario, 'activos')
     Historial(inventario, codCampus, 'Retornado')
  
 def DardeBaja(inventario):
+    print('Ingrese el id del activo que quiere dar de baja')
     codCampus= cf.Search(inventario, 'activos')
     Historial(inventario, codCampus, 'Dado de baja')
+    for key,value in inventario['asignacion'].items():
+        if codCampus in value['activos']:
+            value['activos'].pop[codCampus]
 
 def GarantiaAct(inventario):
+    print('Ingrese el id del activo que quiere aplicar la garantia')
     codCampus= cf.Search(inventario, 'activos')
     Historial(inventario, codCampus, 'Reparacion/Garantia')
 
 def ReAsig(inventario,codCampus):
     Historial(inventario, codCampus, 'ReAsignado')
+    for key,value in inventario['asignacion'].items():
+        if codCampus in value['activos']:
+            value['activos'].pop[codCampus]
 
 def ChangeAsig(inventario):
+    lstNotAsig=[]
     if inventario['personas']:
-        print('ingresa el Codigo del activo que desees editar :')
+        print('ingresa el Codigo del activo que desees reasignar :')
+        for key,value in inventario['activos'].items():
+            if (inventario['activos'][key]['Estado'] == 'asignado')or(inventario['activos'][key]['Estado'] == 'Reasignado'):
+                lstNotAsig.append(key)
         codCampus = cf.Search(inventario, 'activos')
-        for key,value in inventario['asignacion'].items():
-            if codCampus == value['asignadoA']:
-                isValueTrue = True
-                while isValueTrue:
-                    cf.borrar_pantalla()
-                    opciones = '1. Tipo de Modificacion\n2. Id del Responsable del Mov\n3. Salir'
-                    print(opciones)
-                    op = input('Ingrese el numero de la seccion que quiere editar <-> ')
-                    editar = inventario['asignacion'][key]
-                    if (op=='1'):
-                        print('Ingrese el nuevo valor para el tipo de modificacion <-> ')
-                        opciones = '1. Persona\n2. Zona'
+        if codCampus not in lstNotAsig: 
+            print('El valor ingresado no esta en la lista mostrada...')
+            cf.pausarpantalla()
+        else:
+            for key,value in inventario['asignacion'].items():
+                if codCampus == value['asignadoA']:
+                    isValueTrue = True
+                    while isValueTrue:
+                        cf.borrar_pantalla()
+                        opciones = '1. Tipo de Modificacion\n2. Id del Responsable del Mov\n3. Salir'
                         print(opciones)
-                        tipoAsig = input('Ingrese el tipo de la asignacion <-> ') #!!!!!!!!!!!!!!!
-                        if tipoAsig == 'personas':
-                            for key,value in inventario['personas'].items():
-                                print(f'{key} -- {value["nombre"]}')
-                            nuevoValor = Try('int','Ingrese el id de la persona que le asignara <-> ',inventario,'')
-                        elif tipoAsig == 'zonas':
-                            for key,value in inventario['zonas'].items():
-                                print(f'{key} -- {value["nombreZona"]}')
-                            nuevoValor = Try('int','Ingrese el Nro de la zona que le asignara <-> ',inventario,'')
-#editado el tipo
-                        editar['tipoMov'] = nuevoValor
+                        op = input('Ingrese el numero de la seccion que quiere editar <-> ')
+                        editar = inventario['asignacion'][key]
+                        if (op=='1'):
+                            print('Ingrese el nuevo valor para el tipo de modificacion <-> ')
+                            opciones = '1. Persona\n2. Zona'
+                            print(opciones)
+                            tipoAsig = input('Ingrese el tipo de la asignacion <-> ') #!!!!!!!!!!!!!!!
+                            if tipoAsig == 'personas':
+                                for key,value in inventario['personas'].items():
+                                    print(f'{key} -- {value["nombre"]}')
+                                nuevoValor = Try('int','Ingrese el id de la persona que le asignara <-> ',inventario,'')
+                            elif tipoAsig == 'zonas':
+                                for key,value in inventario['zonas'].items():
+                                    print(f'{key} -- {value["nombreZona"]}')
+                                nuevoValor = Try('int','Ingrese el Nro de la zona que le asignara <-> ',inventario,'')
+    #editado el tipo
+                            editar['tipoMov'] = nuevoValor
 
-                    elif (op=='2'):
-                        nuevoValor= Try('int','Ingrese el nuevo valor para el id del Responsable de la Modificacion <-> ',inventario,'')
-                        editar['idRespMov'] = nuevoValor
-                    elif (op=='3'):
-                        break
-        ReAsig(inventario,codCampus)
+                        elif (op=='2'):
+                            nuevoValor= Try('int','Ingrese el nuevo valor para el id del Responsable de la Modificacion <-> ',inventario,'')
+                            editar['idRespMov'] = nuevoValor
+                        elif (op=='3'):
+                            break
+            ReAsig(inventario,codCampus)
     else:
         print('No has ingresado ninguna persona...')
         cf.pausar_pantalla()
