@@ -82,8 +82,18 @@ def listarDadoDeBajo(inventario):
         print(f'pagina {idx + 1} de {totalPag + 1}')
         pausar_pantalla()
 
-def listarRepYAct(inventario = dict):
-    pass
+def listarRepYAct(inventario: dict):
+    tabla = []
+    for key, values in inventario['asignacion'].items():
+        tabla.append(values)
+        lines_per_page= 20
+    for idx, i in enumerate(range(0, len(tabla), lines_per_page)):
+        subset_data = tabla[i:i + lines_per_page]
+        totalPag = len(tabla)//lines_per_page
+        borrar_pantalla()
+        print(tabulate(subset_data, headers="keys", tablefmt="grid", floatfmt=(".0f")))
+        print(f'pagina {idx + 1} de {totalPag + 1}')
+        pausar_pantalla()
 
 def ListarActivoHist(inventario: dict):
     historialActivo = []

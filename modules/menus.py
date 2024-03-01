@@ -1,6 +1,7 @@
+from tabulate import tabulate
 from modules.Activos import AddActivo, EditActivo
 from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
-from modules.reportes import ListarActivos, ListarCategoria, listarDadoDeBajo,ListarActivoHist
+from modules.reportes import ListarActivos, ListarCategoria, listarDadoDeBajo,ListarActivoHist,listarRepYAct
 import modules.personas as p
 import modules.zonas as z
 import os
@@ -47,9 +48,10 @@ def mainmenu(data): #menu principal
             mainmenu(data)
 
 def menuAPZ(opcion): #menu (agregar contenido)
+    opTitulo = str(opcion).upper()
     titulo = f"""
     +++++++++++++++++
-    [ MENU {opcion.upper} ]
+    [ MENU {opTitulo} ]
     +++++++++++++++++
     """
     print(titulo)
@@ -78,8 +80,23 @@ def menuAPZ(opcion): #menu (agregar contenido)
             updateData('data.json', inventario)
     elif (op=='3'):
         delOp(inventario,opcion)
+        updateData('data.json', inventario)
     elif (op=='4'):
-        Search(inventario,opcion)
+        Id= Search(inventario,opcion)
+        if inventario[opcion]:
+            if opcion == 'activos':
+                tabla = []
+                diccionario = dict(inventario['activos'][Id])
+                del(diccionario['historialActivo'])
+                tabla.append(diccionario)
+                print(tabulate(tabla, headers='keys', tablefmt='grid'))
+            elif opcion == 'personal':
+                pass
+            elif opcion == 'zonas':
+                pass
+        else:
+            print(f'no has ingresado ningun valor en {opcion}')
+            pausar_pantalla()
     elif (op=='5'):
         print('Volviendo al menu principal...')
         os.system('pause')
@@ -132,7 +149,7 @@ def menuRep(): #menu de reportes
     elif (op=='3'):
         listarDadoDeBajo(inventario)
     elif (op=='4'):
-        pass
+        listarRepYAct(inventario)
     elif (op=='5'):
         ListarActivoHist(inventario)
     elif (op=='6'):
