@@ -84,7 +84,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
         if opcion == 'zonas':
             abc.update(sorted(inventario['zonas'].items())) 
             for key, value in abc.items():
-                print(f'{key}. {value['nombreZona']}')
+                print(f'{key}. {value["nombreZona"]}')
         delOp(inventario,opcion)
     elif (op=='4'):
         if inventario[opcion]:

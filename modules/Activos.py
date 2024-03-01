@@ -1,4 +1,4 @@
-from corefiles import pausar_pantalla, borrar_pantalla, Search
+from corefiles import pausar_pantalla, borrar_pantalla, Search, Try
 from tabulate import tabulate
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
@@ -38,7 +38,7 @@ def tryValueError():
 def AddActivo (inventario: dict):
     codTransaccion = str(input('ingrese el codigo de transaccion :'))
     nroFormulario = str(input('ingrese el numero de formulario :'))
-    codCampus = Try('str','ingrese el codigo de campus :',inventario,'agregar')
+    codCampus = Try('str','ingrese el codigo de campus :',inventario)
     marca = MCT(marcas)
     categoria = MCT(categorias)
     tipo = MCT(tipos)

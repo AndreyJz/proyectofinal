@@ -1,20 +1,38 @@
 {
-    "activos": {},
+    "activos": {
+        "1": {
+            "codTransaccion": "1",
+            "nroFormulario": "1",
+            "codCampus": "1",
+            "marca": "Lg",
+            "categoria": "Equipo de computo",
+            "tipo": "monitor",
+            "valor": 1.0,
+            "proveedor": "1",
+            "nroSerial": "1",
+            "empResponsable": "1",
+            "Estado": "no asignado",
+            "historialActivo": {}
+        },
+        "2": {
+            "codTransaccion": "2",
+            "nroFormulario": "2",
+            "codCampus": "2",
+            "marca": "Compumax",
+            "categoria": "Electrodomestido",
+            "tipo": "cpu",
+            "valor": 2.0,
+            "proveedor": "2",
+            "nroSerial": "2",
+            "empResponsable": "2",
+            "Estado": "no asignado",
+            "historialActivo": {}
+        }
+    },
     "personas": {
         "1": {
             "id": "1",
             "nombre": "1",
-            "email": "david",
-            "telefono": {
-                "movil": 312423232,
-                "casa": 212,
-                "personal": 122,
-                "oficina": 2121
-            }
-        },
-        "33": {
-            "id": "33",
-            "nombre": "323",
             "email": "1",
             "telefono": {
                 "movil": 1,
@@ -24,12 +42,6 @@
             }
         }
     },
-    "zonas": {
-        "02": {
-            "NroZona": "02",
-            "nombreZona": "awrfwa",
-            "totalCapacidad": 44
-        }
-    },
+    "zonas": {},
     "asignacion": {}
 }

@@ -1,61 +1,113 @@
 import corefiles as cf
-from corefiles import Try
 from datetime import datetime
 
 datenow = str(datetime.now())
 
-countAsg = 0
-
 def AddAsig(dataInventario):
-    countAsg += 1
-    NroAsig = str(countAsig).zfill(3)
-    opciones = '1. Persona\n2. Zona'
-    print(opciones)
-    tipoAsig = Try('str','Ingrese el tipo de la asignacion <-> ',dataInventario)
-    if tipoAsig == 'personas':
-        for key,value in dataInventario['personas'].items():
-            print(f'{key} -- {value["nombre"]}')
-        AsignadoA = Try('int','Ingrese el id de la persona que le asignara <-> ',dataInventario)
-    elif tipoAsig == 'zonas':
-        for key,value in dataInventario['zonas'].items():
-            print(f'{key} -- {value["nombreZona"]}')
-        AsignadoA = Try('int','Ingrese el Nro de la zona que le asignara <-> ',dataInventario)
-    Activos = []
-    lstNotAsig=[]
-    while True: #Ciclo para listar los Activos que no se encuentran asignados
-        for key,value in dataInventario['activos'].items():
-            if dataInventario['activos'][key]['Estado'] == 'no asignado':
-                lstNotAsig.append(key)
-        Activo = Try('int','Estos son los Activos que no se encuentran asigados seleccione uno ingresando el id <-> ',dataInventario)
-        if Activo not in lstNotAsig: 
-            print('El valor ingresado no esta en la lista mostrada...')
-            cf.pausarpantalla()
-        else:
-            Activos.append(Activo)
-            dataInventario['activos'][Activo]['Estado'] = 'asignado'
-        if not bool(input('Desea seguir asignando Activos? S(si) o Enter(no) -> ')):
-            if len(Activos) == 0:
-                print('Debe asignar al menos un activo...')
-                cf.pausarpantalla()
+        opciones = '1. Persona\n2. Zona'
+        print(opciones)
+        tipoAsig = cf.Try('str','Ingrese el tipo de la asignacion <-> ',dataInventario)
+        isValueTrue = True
+        while isValueTrue:
+            if not len(dataInventario['zonas']) == 0 and len(dataInventario['personas']) == 0:
+                if not len(dataInventario['personas']) == 0:
+                    print('inventario vacio')
+                    if tipoAsig == '1':
+                        tipoAsig = 'persona'
+                        for key,value in dataInventario['personas'].items():
+                            print(f'{key} -- {value["nombre"]}')
+                        AsignadoA = cf.Try('int','Ingrese el id de la persona que le asignara <-> ',dataInventario)
+                    elif tipoAsig == '2':
+                        tipoAsig= 'zona'
+                        for key,value in dataInventario['zonas'].items():
+                            print(f'{key} -- {value["nombreZona"]}')
+                        if len(dataInventario)['zonas'] == 0:
+                            print('inventario vacio')
+                            if cf.SiONO('deseas cambiar el tipo de asignacion? SI(s/S) o NO(enter)', 'si'):
+                                tipoAsig = '1'
+                            else:
+                                print('regresando al menu principal...')
+                                return
+                        AsignadoA = cf.Try('int','Ingrese el Nro de la zona que le asignara <-> ',dataInventario)
+                    for key in dataInventario['asignacion'].keys:
+                        if AsignadoA == key:
+                            if cf.SiONO('esta asignacion ya existe, deseas editarla Si(S/s) o No(enter) ', 'si'):
+                                existe = True
+                                isValueTrue= False
+                            else:
+                                print('ingrese otra zona/persona')
+                        else:
+                            isValueTrue= False
+                    else:
+                        print('opcion invalida')
+                else:
+                    cf.borrar_pantalla()
+                    print('debes ingresar al menos una persona\nregresando al menu prinipal...')
+                    cf.pausar_pantalla()
+                    return
             else:
-                break
-    Asig={
-        'NroAsig':NroAsig,
-        'fechaAsig':datenow,
-        'tipoAsig':tipoAsig,
-        'asignadoA':AsignadoA,
-        'activos':Activos
-    }
-    dataInventario.get('asignacion').update({NroAsig:Asig})
-    countAsig = len(dataInventario['activos']['historialActivo'])+1
-    NroAsig = str(countAsig).zfill(3) 
-    History={
-        'NroId':NroAsig,
-        'fecha':datenow,
-        'tipoMov':'asignacion',
-        'idRespMov':Try('int','Ingrese el id de la persona que realizo el movimiento <-> ',dataInventario)
-    }
-    dataInventario['activos'][Activo]['historialActivo'].update({NroAsig:History})
+                cf.borrar_pantalla()
+                print('no hay activos ni personas a los que asignar\nregresando al menu principal...')
+                cf.pausar_pantalla()
+                return
+            if existe:
+                Activos = dataInventario['asignacion'][AsignadoA]['activos']
+            else:
+                Activos = []
+            lstNotAsig=[]
+            for key,value in dataInventario['activos'].items():
+                    if dataInventario['activos'][key]['Estado'] == 'no asignado':
+                        lstNotAsig.append(key)
+                    if len(lstNotAsig) == 0:
+                        print('no hay activos para asignar\nregresando al menu principal')
+                        cf.pausar_pantalla()
+                        return
+            while True: #Ciclo para listar los Activos que no se encuentran asignados
+                Activo = cf.Try('str','Ingrese el codCampus del activo que desea agregar <-> ',dataInventario)
+                if Activo not in lstNotAsig: 
+                    print('El valor que estas ingresando no existe o ya esta asignado...')
+                    cf.pausar_pantalla()
+                elif Activo in Activos:
+                    print('Valor ya agregado en esta asignacion...')
+                    cf.pausar_pantalla()
+                else:
+                    Activos.append(Activo)
+                    dataInventario['activos'][Activo]['Estado'] = 'asignado'
+                if not len(Activos) == len(lstNotAsig):
+                    if not cf.SiONO('Desea seguir asignando Activos? S(si) o Enter(no) -> ', 'si'):
+                        if len(Activos) == 0:
+                            print('Debe asignar al menos un activo...')
+                            cf.pausar_pantalla()
+                        else:
+                            break
+        Asig={
+            'NroAsig':NroAsig,
+            'fechaAsig':datenow,
+            'tipoAsig':tipoAsig,
+            'asignadoA':AsignadoA,
+            'activos':Activos
+        }
+        dataInventario.get('asignacion').update({AsignadoA:Asig})
+        countAsig = len(dataInventario['activos'][Activo]['historialActivo'])+1
+        NroAsig = str(countAsig).zfill(3) 
+        isValueTrue= True
+        while isValueTrue:
+            cf.borrar_pantalla()
+            for key,value in dataInventario['personas'].items():
+                print(f'{key} -- {value["nombre"]}')
+            idRespMov = str(input('quien fue el responsable del movimimiento :'))
+            if idRespMov == dataInventario['personas'].keys():
+                isValueTrue = False
+            else:
+                print('ingresa una id valida')
+                cf.borrar_pantalla()
+        History={
+            'NroId':NroAsig,
+            'fecha':datenow,
+            'tipoMov':'asignacion',
+            'idRespMov': idRespMov
+        }
+        dataInventario['activos'][Activo]['historialActivo'].update({NroAsig:History})
 
 def ReturnAct(inventario):
     codCampus= cf.Search(inventario, 'activos')
@@ -93,16 +145,16 @@ def ChangeAsig(inventario):
                         if tipoAsig == 'personas':
                             for key,value in inventario['personas'].items():
                                 print(f'{key} -- {value["nombre"]}')
-                            nuevoValor = Try('int','Ingrese el id de la persona que le asignara <-> ',inventario,'')
+                            nuevoValor = cf.Try('int','Ingrese el id de la persona que le asignara <-> ',inventario,'')
                         elif tipoAsig == 'zonas':
                             for key,value in inventario['zonas'].items():
                                 print(f'{key} -- {value["nombreZona"]}')
-                            nuevoValor = Try('int','Ingrese el Nro de la zona que le asignara <-> ',inventario,'')
+                            nuevoValor = cf.Try('int','Ingrese el Nro de la zona que le asignara <-> ',inventario,'')
 #editado el tipo
                         editar['tipoMov'] = nuevoValor
 
                     elif (op=='2'):
-                        nuevoValor= Try('int','Ingrese el nuevo valor para el id del Responsable de la Modificacion <-> ',inventario,'')
+                        nuevoValor= cf.Try('int','Ingrese el nuevo valor para el id del Responsable de la Modificacion <-> ',inventario,'')
                         editar['idRespMov'] = nuevoValor
                     elif (op=='3'):
                         break

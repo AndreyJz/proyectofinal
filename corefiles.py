@@ -94,3 +94,27 @@ def Search(inventario: dict, opcion: str):
                 elif len(inventario[opcion])-1 == idx:
                     print('Nro de Asignacion no encontrado, ingreselo de nuevo')
                     pausar_pantalla()
+
+def SiONO(msg, siono):
+    if siono == 'si':
+        isValueTrue= True
+        while isValueTrue:
+            si = str(input(msg)).strip()
+            if si:
+                if si == 's' or si == 'S':
+                    return True
+                elif si == '':
+                    return False
+                else:
+                    print('debes escribir S/s o presionar enter')
+    if siono == 'no':
+        isValueTrue= True
+        while isValueTrue:
+            si = str(input(msg)).strip()
+            if si:
+                if si == 'n' or si == 'N':
+                    return True
+                elif si == '':
+                    return False
+                else:
+                    print('debes escribir S/s o presionar enter')
