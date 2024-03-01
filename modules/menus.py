@@ -1,18 +1,20 @@
-from modules.Activos import AddActivo, EditActivo
+from tabulate import tabulate
 from corefiles import borrar_pantalla, pausar_pantalla, updateData, delOp, Search
+import modules.Activos as act
+import modules.reportes as rep
+import modules.asignaciones as a
 import modules.personas as p
 import modules.zonas as z
-import modules.asignaciones as a
-from tabulate import tabulate
+import os
+
 
 def mainmenu(data): #menu principal
-    borrar_pantalla()
-    
     global inventario
     inventario = data
     
     issAppRunning = True
     while issAppRunning:
+        borrar_pantalla()
         titulo = """
         +++++++++++++++++++++++++++++++++++++++++
         [ SISTEMA G&C DE INVENTARIO CAMPUSLANDS ]
@@ -47,9 +49,10 @@ def mainmenu(data): #menu principal
             mainmenu(data)
 
 def menuAPZ(opcion): #menu (agregar contenido)
+    opTitulo = str(opcion).upper()
     titulo = f"""
     +++++++++++++++++
-    [ MENU {opcion.upper()} ]
+    [ MENU {opTitulo} ]
     +++++++++++++++++
     """
     print(titulo)
@@ -58,7 +61,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
         if opcion == 'activos':
-            AddActivo(inventario)
+            act.AddActivo(inventario)
             updateData('data.json', inventario)
         elif opcion == 'personas':
             p.AddPersona(inventario)
@@ -68,7 +71,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
             updateData('data.json', inventario)
     elif (op=='2'):
         if opcion == 'activos':
-            EditActivo(inventario)
+            act.EditActivo(inventario)
             updateData('data.json', inventario)
         elif opcion == 'personas':
             p.EditPersona(inventario)
@@ -77,14 +80,23 @@ def menuAPZ(opcion): #menu (agregar contenido)
             z.EditZona(inventario)
             updateData('data.json', inventario)
     elif (op=='3'):
+        abc= {}
+        if opcion == 'zonas':
+            abc.update(sorted(inventario['zonas'].items())) 
+            for key, value in abc.items():
+                print(f'{key}. {value['nombreZona']}')
         delOp(inventario,opcion)
     elif (op=='4'):
-        print('Ingrese el numero de identificacion del objeto a buscar <-> ')
-        buscado=Search(inventario,opcion)
-        tabla=[]
-        tabla.append(inventario['asignado'][buscado])
-        print(tabulate(tabla,headers='keys',tablefmt='grid'))
-        pausar_pantalla()
+        if inventario[opcion]:
+            if opcion == 'activos':
+                act.SearchActivo(inventario)
+            elif opcion == 'personal':
+                pass
+            elif opcion == 'zonas':
+                pass
+        else:
+            print(f'no has ingresado ningun valor en {opcion}')
+            pausar_pantalla()
     elif (op=='5'):
         print('Volviendo al menu principal...')
         pausar_pantalla()
@@ -132,25 +144,23 @@ def menuRep(): #menu de reportes
     +++++++++++++++++
     """
     print(titulo)
-    opciones = '1. Lista Activos\n2. Lista Activos por Categoria\n3. Lista Activos dados de Baja\n4. Lista Activos y Asignacion\n5. Lista Historial de Mov. de Activo\n6. Movimiento De Activos\n7. Regresar al Menu Principal\n'
+    opciones = '1. Lista Activos\n2. Lista Activos por Categoria\n3. Lista Activos dados de Baja\n4. Lista Activos y Asignacion\n5. Lista Historial de Mov. de Activo\n6. Regresar al Menu Principal\n'
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
-        pass
+        rep.ListarActivos(inventario)
     elif (op=='2'):
-        pass
+        rep.ListarCategoria(inventario)
     elif (op=='3'):
-        pass
+        rep.listarDadoDeBajo(inventario)
     elif (op=='4'):
-        pass
+        rep.listarRepYAct(inventario)
     elif (op=='5'):
-        pass
+        rep.ListarActivoHist(inventario)
     elif (op=='6'):
-        pass
-    elif (op=='7'):
         print('Volviendo al menu principal...')
-        pausar_pantalla()
-        mainmenu()
+        os.system('pause')
+        mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
         pausar_pantalla()

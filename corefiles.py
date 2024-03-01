@@ -16,9 +16,8 @@ def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     else:
         os.system("pause")
 
-def Try(type, msg, inventario, seccion):
+def Try(type, msg, inventario):
     while True:
-        borrar_pantalla()
         try:
             Msg = input(msg)
             if(type == 'int'):
@@ -32,24 +31,9 @@ def Try(type, msg, inventario, seccion):
         else:
             if(type == 'str')and(len(Msg)<0):
                 print('Debes ingresar un valor...')
-                if len(inventario) == 0:
-                    print('No has ingresado ninguna persona...')
-                    pausar_pantalla()
-                else:
-                    if Msg not in inventario:
-                        if seccion == 'agregar':
-                            return Msg
-                            False
-                        else:
-                            print('El valor ingresado no esta registrado')
-                            pausar_pantalla()
-                    else:
-                        if seccion == 'agregar':
-                            print('El valor ingresado ya esta registrado')
-                            pausar_pantalla()
-                        else:
-                            return Msg
-                            False
+            else:
+                return Msg
+                False
 
 def checkFile(archivo:str, data): #comprueba si el archivo existe
     if(os.path.isfile(BASE+ archivo)): 
@@ -69,14 +53,14 @@ def updateData(archivo:str,data): #actualiza el diccionario
 def delOp(dataInventario,opcion):
     borrar_pantalla()
     if opcion == 'activo':
-        delVal = Try('str', "Ingrese el Codigo de campus del Activo que quiere borrar <-> ", dataInventario[opcion], '')
+        delVal = Try('str', "Ingrese el Codigo de campus del Activo que quiere borrar <-> ", dataInventario[opcion])
     elif opcion == 'personas':
-        delVal = Try('int', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion], '')
+        delVal = Try('int', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion])
     elif opcion == 'zonas':
-        delVal = Try('int', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion], '')
+        delVal = Try('str', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion])
 
     dataInventario[opcion].pop(delVal)
-    updateData('inventario.json',dataInventario)
+    updateData('data.json',dataInventario)
     print('Ha sido eliminado correctamente')
     pausar_pantalla()
 
@@ -84,7 +68,7 @@ def delOp(dataInventario,opcion):
 def Search(inventario: dict, opcion: str): 
     isValueTrue = True
     while isValueTrue:
-        codCampus = Try('str', ')_', inventario,'')
+        codCampus = Try('str', ')_', inventario)
         for idx, (key, value) in enumerate(inventario[opcion].items()): #Itera sobre el diccionario seleccionado y idx imprime un mensaje de error
             if opcion == 'activos':
                 if value['codCampus'] == codCampus:
@@ -110,5 +94,3 @@ def Search(inventario: dict, opcion: str):
                 elif len(inventario[opcion])-1 == idx:
                     print('Nro de Asignacion no encontrado, ingreselo de nuevo')
                     pausar_pantalla()
-
-            

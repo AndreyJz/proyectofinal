@@ -4,30 +4,29 @@ from datetime import datetime
 
 datenow = str(datetime.now())
 
-countAsig=0
+countAsg = 0
 
 def AddAsig(dataInventario):
-    countAsig +=1
+    countAsg += 1
     NroAsig = str(countAsig).zfill(3)
     opciones = '1. Persona\n2. Zona'
     print(opciones)
-    tipoAsig = Try('str','Ingrese el tipo de la asignacion <-> ',dataInventario,'agregar')
+    tipoAsig = Try('str','Ingrese el tipo de la asignacion <-> ',dataInventario)
     if tipoAsig == 'personas':
         for key,value in dataInventario['personas'].items():
             print(f'{key} -- {value["nombre"]}')
-        AsignadoA = Try('int','Ingrese el id de la persona que le asignara <-> ',dataInventario,'agregar')
+        AsignadoA = Try('int','Ingrese el id de la persona que le asignara <-> ',dataInventario)
     elif tipoAsig == 'zonas':
         for key,value in dataInventario['zonas'].items():
             print(f'{key} -- {value["nombreZona"]}')
-        AsignadoA = Try('int','Ingrese el Nro de la zona que le asignara <-> ',dataInventario,'agregar')
+        AsignadoA = Try('int','Ingrese el Nro de la zona que le asignara <-> ',dataInventario)
     Activos = []
     lstNotAsig=[]
     while True: #Ciclo para listar los Activos que no se encuentran asignados
         for key,value in dataInventario['activos'].items():
             if dataInventario['activos'][key]['Estado'] == 'no asignado':
-                print(f'{key} -- {value["nombre"]}')
                 lstNotAsig.append(key)
-        Activo = Try('int','Estos son los Activos que no se encuentran asigados seleccione uno ingresando el id <-> ',dataInventario,'agregar')
+        Activo = Try('int','Estos son los Activos que no se encuentran asigados seleccione uno ingresando el id <-> ',dataInventario)
         if Activo not in lstNotAsig: 
             print('El valor ingresado no esta en la lista mostrada...')
             cf.pausarpantalla()
@@ -54,7 +53,7 @@ def AddAsig(dataInventario):
         'NroId':NroAsig,
         'fecha':datenow,
         'tipoMov':'asignacion',
-        'idRespMov':Try('int','Ingrese el id de la persona que realizo el movimiento <-> ',dataInventario,'agregar')
+        'idRespMov':Try('int','Ingrese el id de la persona que realizo el movimiento <-> ',dataInventario)
     }
     dataInventario['activos'][Activo]['historialActivo'].update({NroAsig:History})
 

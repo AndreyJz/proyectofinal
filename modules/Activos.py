@@ -1,4 +1,5 @@
-from corefiles import pausar_pantalla, borrar_pantalla, Search,Try
+from corefiles import pausar_pantalla, borrar_pantalla, Search
+from tabulate import tabulate
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
 categorias = ['Equipo de computo', 'Electrodomestido', 'juego']
@@ -43,9 +44,9 @@ def AddActivo (inventario: dict):
     tipo = MCT(tipos)
     borrar_pantalla()
     valor = tryValueError()
-    proveedor = Try('str','ingrese el proveedor',inventario,'agregar')
-    nroSerial = tryValueError()
-    empResponsable = Try('str','ingrese cual es la empresa responsable :',inventario,'agregar')
+    proveedor = str(input('ingrese el proveedor'))
+    nroSerial = str(input('ingrese el numero serial'))
+    empResponsable = str(input('ingrese cual es la empresa responsable :'))
     Estado = 'no asignado'
     historialActivo = {}
     
@@ -115,12 +116,20 @@ def EditActivo(inventario):
     else:
         return
         
+def SearchActivo(inventario: dict):
+    codCampus = Search(inventario, 'activos')
+    tabla = []
+    diccionario = dict(inventario['activos'][codCampus])
+    del(diccionario['historialActivo'])
+    tabla.append(diccionario)
+    print(tabulate(tabla, headers='keys', tablefmt='grid'))
+    pausar_pantalla()
 
 # def DeleteActivo(inventario: dict):
 #     if inventario['activos']:
 #         borrar_pantalla()
 #         print('ingrese el codigo de campus del activo que desea borrar')
-#         codCampus= SearchActivos(inventario, 'activos')
+#         codCampus= Search(inventario, 'activos')
 #         del(inventario['activos'][codCampus])
 #         print('el activo ha sido eliminado correctamente')
 #         pausar_pantalla()
