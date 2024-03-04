@@ -1,13 +1,13 @@
-from corefiles import pausar_pantalla, borrar_pantalla, Search, Try
+from corefiles import pausar_pantalla, borrar_pantalla, Search, Try, SiONO
 from tabulate import tabulate
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
 categorias = ['Equipo de computo', 'Electrodomestido', 'juego']
 tipos = ['monitor', 'cpu', 'teclado', 'mouse', 'aire acondicionado', 'portatil', 'impresora']
 
-def MCT(mct): #una funcion para resumir la seleccion de marcas/categorias/tipos
+def MCT(mct,opcion): #una funcion para resumir la seleccion de marcas/categorias/tipos
         borrar_pantalla()
-        print('A que categoria pertenece el activo :')
+        print(f'A que {opcion} pertenece el activo :')
         for idx, item in enumerate(mct):
             print(f'{idx+1}. {item}') #lista las opciones segun la lista ingresada
         isValueTrue= True
@@ -38,10 +38,17 @@ def tryValueError():
 def AddActivo (inventario: dict):
     codTransaccion = str(input('ingrese el codigo de transaccion :'))
     nroFormulario = str(input('ingrese el numero de formulario :'))
-    codCampus = Try('str','ingrese el codigo de campus :',inventario)
-    marca = MCT(marcas)
-    categoria = MCT(categorias)
-    tipo = MCT(tipos)
+    while True:
+        codCampus = Try('str','ingrese el codigo de campus :',inventario)
+        if codCampus in inventario['activos']:
+            print('el activo ya existe\nsi deseas crear un activo con este codigo\nelimina el activo anterior')
+            if not SiONO('deseas añadir el activo con otro codCampus? Si[S/s] NO[Enter]', 'si'):
+                return
+        else:
+            break
+    marca = MCT(marcas,'marca')
+    categoria = MCT(categorias,'categoria')
+    tipo = MCT(tipos,'tipo')
     borrar_pantalla()
     valor = tryValueError()
     proveedor = str(input('ingrese el proveedor'))

@@ -59,19 +59,34 @@ def delOp(dataInventario,opcion):
                 print('No se puede eliminar, porque se encuentra asignado a una persona o zona')
                 pausar_pantalla()
                 return
-        dataInventario[opcion].pop(delVal)
+        if delVal in dataInventario['activos']:
+            dataInventario[opcion].pop(delVal)
+        else:
+            print('el valor ingresado no existe\nregresando al menu principal')
+            pausar_pantalla()
+            return
         updateData('data.json',dataInventario)
         print('Ha sido eliminado correctamente')
         pausar_pantalla()
         return
     elif opcion == 'personas':
         delVal = Try('str', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion])
+        if not delVal in dataInventario['personas']:
+            print('el valor ingresado no existe\nregresando al menu principal')
+            pausar_pantalla()
+            return
     elif opcion == 'zonas':
         delVal = Try('str', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion])
-
-    
+        if not delVal in dataInventario['zonas']:
+            print('el valor ingresado no existe\nregresando al menu principal')
+            pausar_pantalla()
+            return        
+    if opcion == 'personas':
+        delValue= 'P' + delVal
+    else:
+        delValue= 'Z' + delVal
     try:
-        if len(dataInventario['asignacion'][delVal]['activos']) != 0:
+        if len(dataInventario['asignacion'][delValue]['activos']) != 0:
             print('No se puede eliminar, porque tiene activos asignados...')
             pausar_pantalla()
             return
@@ -82,7 +97,7 @@ def delOp(dataInventario,opcion):
         pausar_pantalla()
     else:
         dataInventario[opcion].pop(delVal)
-        dataInventario['asignacion'].pop(delVal)
+        dataInventario['asignacion'].pop(delValue)
         updateData('data.json',dataInventario)
         print('Ha sido eliminado correctamente')
         pausar_pantalla()

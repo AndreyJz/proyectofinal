@@ -3,7 +3,14 @@ from corefiles import Try
 from tabulate import tabulate
 
 def AddPersona(dataInventario):
-    id = Try('int','Ingrese el Nro de Id <-> ',dataInventario)
+    while True:
+        id = Try('int','Ingrese el Nro de Id <-> ',dataInventario)
+        if id in dataInventario['personas']:
+            print('el activo ya existe\nsi deseas crear un activo con este codigo\nelimina el activo anterior')
+            if not cf.SiONO('deseas añadir el activo con otro id? Si[S/s] NO[Enter]', 'si'):
+                return
+        else:
+            break
     nombre = Try('str','Ingrese el Nombre <-> ',dataInventario)
     email = Try('str','Ingrese el email <-> ',dataInventario)
     movil = Try('int','Ingrese el Nro del movil <-> ',dataInventario)

@@ -10,7 +10,13 @@ def AddZona(dataInventario):
         if NroZona == keys:
             NroZona = str(newNroZona + 1).zfill(2)
     nombreZona = Try('str','Ingrese el Nombre de la Zona <-> ',dataInventario)
-    totalCapacidad = Try('int','Ingrese el capacidad total de la Zona <-> ',dataInventario)
+    while True:
+        totalCapacidad = Try('int','Ingrese el capacidad total de la Zona <-> ',dataInventario)
+        if totalCapacidad <= 0:
+            print('La capacidad no puede ser menor o igual a cero...')
+            cf.pausar_pantalla
+        else: 
+            break
     Zone = {
         'NroZona':NroZona,
         'nombreZona':nombreZona,

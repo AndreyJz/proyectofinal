@@ -90,6 +90,12 @@ def menuAPZ(opcion): #menu (agregar contenido)
             abc.update(sorted(inventario['zonas'].items())) 
             for key, value in abc.items():
                 print(f'{key}. {value["nombreZona"]}')
+            pausar_pantalla()
+        if opcion == 'personas':
+            abc.update(sorted(inventario['personas'].items())) 
+            for key, value in abc.items():
+                print(f'{key}. {value["nombre"]}')
+            pausar_pantalla()
         delOp(inventario,opcion)
     elif (op=='4'):
         borrar_pantalla()
@@ -214,7 +220,7 @@ def menuMOVActivos():  #menu de movimiento de activos
         borrar_pantalla()
         print('Volviendo al menu principal...')
         pausar_pantalla()
-        mainmenu()
+        mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
         pausar_pantalla() 
