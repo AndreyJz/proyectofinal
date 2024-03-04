@@ -1,7 +1,8 @@
 import corefiles as cf
-from datetime import datetime
+from datetime import date
+from tabulate import tabulate
 
-datenow = str(datetime.now())
+datenow = str(date.now())
 
 def AddAsig(dataInventario):
     existe= False
@@ -14,6 +15,7 @@ def AddAsig(dataInventario):
         tipoAsig = cf.Try('str','Ingrese el tipo de la asignacion <-> ',dataInventario)
         isValueTrue1= True
         while isValueTrue1:
+            cf.borrar_pantalla()
             if len(dataInventario['zonas']) != 0 or len(dataInventario['personas']) != 0: #Si los diccionarios zonas/personas estan vacios, se ejecuta else
                 if not len(dataInventario['personas']) == 0: #si personas esta vacio ejecuta el else (personas es necesario para el registro del historial)
                     if tipoAsig == '1':
@@ -67,7 +69,7 @@ def AddAsig(dataInventario):
                     return
             else:
                 cf.borrar_pantalla()
-                print('no hay activos ni personas a los que asignar\nregresando al menu principal...')
+                print('no hay zonas ni personas a los que asignar\nregresando al menu principal...')
                 cf.pausar_pantalla()
                 return
     if existe:
@@ -84,6 +86,7 @@ def AddAsig(dataInventario):
         cf.pausar_pantalla()
         return
     while True: #Ciclo para listar los Activos que no se encuentran asignados
+        cf.borrar_pantalla()
         Activo = cf.Try('str','Ingrese el codCampus del activo que desea agregar <-> ',dataInventario)
         if Activo not in lstNotAsig: 
             print('El valor que estas ingresando no existe o ya esta asignado...')
@@ -141,7 +144,7 @@ def ReturnAct(inventario):
         print('el activo que deseas retornar debe encontrarse en reparacion o garantia\nvolviendo al menu...')
         cf.pausar_pantalla()
         return
-    Historial(inventario, codCampus, 'Retornado')
+    Historial(inventario, codCampus, 'asignado')
  
 def DardeBaja(inventario):
     print('Ingrese el id del activo que quiere dar de baja')
@@ -163,7 +166,7 @@ def ReAsig(inventario):
     if len(inventario['asignacion']) >= 2:
         print('ingrese el activo que desea reasignar')
         codCampus= cf.Search(inventario, 'activos')
-        if inventario['activos'][codCampus]['Estado'] == 'asignado' or inventario['activos'][codCampus]['Estado'] == 'Reasignado' or inventario['activos'][codCampus]['Estado'] == 'Retornado':
+        if inventario['activos'][codCampus]['Estado'] == 'asignado' or inventario['activos'][codCampus]['Estado'] == 'Reasignado':
             print('ingresa la asignacion a la que deseas reasignar el activo\nestas son las asignaciones disponibles')
             for key in inventario['asignacion'].keys():
                 print(key)
@@ -196,3 +199,11 @@ def Historial(inventario, codCampus, tipo):
         'idRespMov':input('Ingrese el id de la persona que realizo el movimiento <-> ')
     }
     inventario['activos'][codCampus]['historialActivo'].update({NroId:History})
+
+def SearchAsig(inventario: dict):
+    codCampus = cf.Search(inventario, 'asignacion')
+    tabla = []
+    diccionario = dict(inventario['asignacion'][codCampus])
+    tabla.append(diccionario)
+    print(tabulate(tabla, headers='keys', tablefmt='grid'))
+    cf.pausar_pantalla()

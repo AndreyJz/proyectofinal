@@ -1,5 +1,7 @@
 import corefiles as cf
 from corefiles import Try
+from tabulate import tabulate
+
 
 def AddZona(dataInventario):
     NroZona = str(len(dataInventario['zonas'])+1).zfill(2)
@@ -39,3 +41,11 @@ def EditZona(dataInventario):
     else:
         print('No has ingresado ninguna persona...')
         cf.pausar_pantalla()
+
+def SearchZone(inventario: dict):
+    codCampus = cf.Search(inventario, 'zonas')
+    tabla = []
+    diccionario = dict(inventario['zonas'][codCampus])
+    tabla.append(diccionario)
+    print(tabulate(tabla, headers='keys', tablefmt='grid'))
+    cf.pausar_pantalla()

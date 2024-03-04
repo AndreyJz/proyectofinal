@@ -9,6 +9,7 @@ import os
 
 
 def mainmenu(data): #menu principal
+    borrar_pantalla()
     global inventario
     inventario = data
     
@@ -49,6 +50,7 @@ def mainmenu(data): #menu principal
             mainmenu(data)
 
 def menuAPZ(opcion): #menu (agregar contenido)
+    borrar_pantalla()
     opTitulo = str(opcion).upper()
     titulo = f"""
     +++++++++++++++++
@@ -60,6 +62,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
+        borrar_pantalla()
         if opcion == 'activos':
             act.AddActivo(inventario)
             updateData('data.json', inventario)
@@ -70,6 +73,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
             z.AddZona(inventario)
             updateData('data.json', inventario)
     elif (op=='2'):
+        borrar_pantalla()
         if opcion == 'activos':
             act.EditActivo(inventario)
             updateData('data.json', inventario)
@@ -80,6 +84,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
             z.EditZona(inventario)
             updateData('data.json', inventario)
     elif (op=='3'):
+        borrar_pantalla()
         abc= {}
         if opcion == 'zonas':
             abc.update(sorted(inventario['zonas'].items())) 
@@ -87,17 +92,22 @@ def menuAPZ(opcion): #menu (agregar contenido)
                 print(f'{key}. {value["nombreZona"]}')
         delOp(inventario,opcion)
     elif (op=='4'):
+        borrar_pantalla()
         if inventario[opcion]:
             if opcion == 'activos':
+                print('Ingrese el numero de identificacion del activo a buscar <-> ')
                 act.SearchActivo(inventario)
             elif opcion == 'personal':
-                pass
+                print('Ingrese el numero de identificacion de la persona a buscar <-> ')
+                p.SearchPpl(inventario)
             elif opcion == 'zonas':
-                pass
+                print('Ingrese el numero de identificacion de la zona a buscar <-> ')
+                z.SearchZone(inventario)
         else:
             print(f'no has ingresado ningun valor en {opcion}')
             pausar_pantalla()
     elif (op=='5'):
+        borrar_pantalla()
         print('Volviendo al menu principal...')
         pausar_pantalla()
         mainmenu(inventario)
@@ -109,6 +119,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
 
     
 def menuAsigActivos(): #menu de asignacion de activos
+    borrar_pantalla()
     titulo = """
     ++++++++++++++++++++++++++++++
     [ MENU ASIGNACION DE ACTIVOS ]
@@ -119,16 +130,15 @@ def menuAsigActivos(): #menu de asignacion de activos
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
+        borrar_pantalla()
         a.AddAsig(inventario)
         updateData('data.json', inventario)
     elif(op=='2'):
-        print('Ingrese el numero de identificacion del objeto a buscar <-> ')
-        buscado=Search(inventario,opcion='asignacion')
-        tabla=[]
-        tabla.append(inventario['asignado'][buscado])
-        print(tabulate(tabla,headers='keys',tablefmt='grid'))
-        pausar_pantalla()
+        borrar_pantalla()
+        print('Ingrese el numero de identificacion de la persona o zona que se asigno en la asignacion <-> ')
+        a.SearchAsig(inventario)
     elif(op=='3'):
+        borrar_pantalla()
         print('Volviendo al menu principal...')
         pausar_pantalla()
         mainmenu(inventario)
@@ -138,6 +148,7 @@ def menuAsigActivos(): #menu de asignacion de activos
         menuAsigActivos()
 
 def menuRep(): #menu de reportes
+    borrar_pantalla()
     titulo = """
     +++++++++++++++++
     [ MENU REPORTES ]
@@ -148,16 +159,22 @@ def menuRep(): #menu de reportes
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
+        borrar_pantalla()
         rep.ListarActivos(inventario)
     elif (op=='2'):
+        borrar_pantalla()
         rep.ListarCategoria(inventario)
     elif (op=='3'):
+        borrar_pantalla()
         rep.listarDadoDeBajo(inventario)
     elif (op=='4'):
+        borrar_pantalla()
         rep.listarRepYAct(inventario)
     elif (op=='5'):
+        borrar_pantalla()
         rep.ListarActivoHist(inventario)
     elif (op=='6'):
+        borrar_pantalla()
         print('Volviendo al menu principal...')
         os.system('pause')
         mainmenu(inventario)
@@ -167,6 +184,7 @@ def menuRep(): #menu de reportes
         menuRep()
 
 def menuMOVActivos():  #menu de movimiento de activos
+    borrar_pantalla()
     titulo = """
     ++++++++++++++++++++++++++++++
     [ MENU MOVIMIENTO DE ACTIVOS ]
@@ -177,18 +195,23 @@ def menuMOVActivos():  #menu de movimiento de activos
     print(opciones)
     op = input('Ingrese el numero de la seccion a la que quiere ingresar <-> ')
     if (op=='1'):
+        borrar_pantalla()
         a.ReturnAct(inventario)
         updateData('data.json', inventario)
     elif(op=='2'):
+        borrar_pantalla()
         a.DardeBaja(inventario)
         updateData('data.json', inventario)
     elif(op=='3'):
+        borrar_pantalla()
         a.ReAsig(inventario)
         updateData('data.json', inventario)
     elif(op=='4'):
+        borrar_pantalla()
         a.GarantiaAct(inventario)
         updateData('data.json', inventario)
     elif(op=='5'):
+        borrar_pantalla()
         print('Volviendo al menu principal...')
         pausar_pantalla()
         mainmenu()

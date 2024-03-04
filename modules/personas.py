@@ -1,6 +1,6 @@
 import corefiles as cf
 from corefiles import Try
-
+from tabulate import tabulate
 
 def AddPersona(dataInventario):
     id = Try('int','Ingrese el Nro de Id <-> ',dataInventario)
@@ -68,4 +68,11 @@ def EditPersona(dataInventario):
     else:
         print('No has ingresado ninguna persona...')
         cf.pausar_pantalla()
-        
+
+def SearchPpl(inventario: dict):
+    codCampus = cf.Search(inventario, 'personas')
+    tabla = []
+    diccionario = dict(inventario['personas'][codCampus])
+    tabla.append(diccionario)
+    print(tabulate(tabla, headers='keys', tablefmt='grid'))
+    cf.pausar_pantalla()
