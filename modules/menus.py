@@ -123,7 +123,7 @@ def menuAsigActivos(): #menu de asignacion de activos
         updateData('data.json', inventario)
     elif(op=='2'):
         print('Ingrese el numero de identificacion del objeto a buscar <-> ')
-        buscado=Search(inventario,opcion='asigancion')
+        buscado=Search(inventario,opcion='asignacion')
         tabla=[]
         tabla.append(inventario['asignado'][buscado])
         print(tabulate(tabla,headers='keys',tablefmt='grid'))
@@ -131,7 +131,7 @@ def menuAsigActivos(): #menu de asignacion de activos
     elif(op=='3'):
         print('Volviendo al menu principal...')
         pausar_pantalla()
-        mainmenu()
+        mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')
         pausar_pantalla()
@@ -183,7 +183,7 @@ def menuMOVActivos():  #menu de movimiento de activos
         a.DardeBaja(inventario)
         updateData('data.json', inventario)
     elif(op=='3'):
-        a.ChangeAsig(inventario)
+        a.ReAsig(inventario)
         updateData('data.json', inventario)
     elif(op=='4'):
         a.GarantiaAct(inventario)

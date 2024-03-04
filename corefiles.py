@@ -52,29 +52,37 @@ def updateData(archivo:str,data): #actualiza el diccionario
 
 def delOp(dataInventario,opcion):
     borrar_pantalla()
-    if opcion == 'activo':
+    if opcion == 'activos':
         delVal = Try('str', "Ingrese el Codigo de campus del Activo que quiere borrar <-> ", dataInventario[opcion])
+        for key,value in dataInventario['asignacion'].items():
+            if delVal in value['activos']:
+                print('No se puede eliminar, porque se encuentra asignado a una persona o zona')
+                pausar_pantalla()
+                return
+        dataInventario[opcion].pop(delVal)
+        updateData('data.json',dataInventario)
+        print('Ha sido eliminado correctamente')
+        pausar_pantalla()
+        return
     elif opcion == 'personas':
-        delVal = Try('int', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion])
+        delVal = Try('str', "Ingrese el Nro de Identificacion de la Persona que quiere borrar <-> ", dataInventario[opcion])
     elif opcion == 'zonas':
         delVal = Try('str', "Ingrese el Nro de Identificacion de la Zona que quiere borrar <-> ", dataInventario[opcion])
 
-    for key,value in dataInventario['asignacion'].items():
-        
-        if delVal in value['activos']:
-            print('No se puede eliminar, porque se encuentra asignado a una persona o zona')
+    
+    try:
+        if len(dataInventario['asignacion'][delVal]['activos']) != 0:
+            print('No se puede eliminar, porque tiene activos asignados...')
             pausar_pantalla()
-        else:
-            dataInventario[opcion].pop(delVal)
-            updateData('data.json',dataInventario)
-            print('Ha sido eliminado correctamente')
-            pausar_pantalla()
-        
-    if len(dataInventario['asignacion'][delVal]['activos']) != 0:
-        print('No se puede eliminar, porque tiene activos asignados...')
+            return
+    except KeyError:
+        dataInventario[opcion].pop(delVal)
+        updateData('data.json',dataInventario)
+        print('Ha sido eliminado correctamente')
         pausar_pantalla()
     else:
         dataInventario[opcion].pop(delVal)
+        dataInventario['asignacion'].pop(delVal)
         updateData('data.json',dataInventario)
         print('Ha sido eliminado correctamente')
         pausar_pantalla()
@@ -114,21 +122,19 @@ def SiONO(msg, siono):
         isValueTrue= True
         while isValueTrue:
             si = str(input(msg)).strip()
-            if si:
-                if si == 's' or si == 'S':
-                    return True
-                elif si == '':
-                    return False
-                else:
-                    print('debes escribir S/s o presionar enter')
+            if si == 's' or si == 'S':
+                return True
+            elif si == '':
+                return False
+            else:
+                print('debes escribir S/s o presionar enter')
     if siono == 'no':
         isValueTrue= True
         while isValueTrue:
             si = str(input(msg)).strip()
-            if si:
-                if si == 'n' or si == 'N':
-                    return True
-                elif si == '':
-                    return False
-                else:
-                    print('debes escribir S/s o presionar enter')
+            if si == 'n' or si == 'N':
+                return True
+            elif si == '':
+                return False
+            else:
+                print('debes escribir S/s o presionar enter')
