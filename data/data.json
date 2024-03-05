@@ -12,33 +12,8 @@
             "nombre": "CPU - Bodg50-9051-900-0017 GMR ESC   ",
             "nroSerial": "400SN39173",
             "empResponsable": "Campuslands",
-            "Estado": "Dado de baja",
-            "historialActivo": {
-                "001": {
-                    "NroId": "001",
-                    "fecha": "2024-03-04 18:06:20.354912",
-                    "tipoMov": "asignacion",
-                    "idRespMov": 12121221
-                },
-                "002": {
-                    "NroId": "002",
-                    "fecha": "2024-03-04 18:14:46.111458",
-                    "tipoMov": "ReAsignado",
-                    "idRespMov": "12121221"
-                },
-                "003": {
-                    "NroId": "003",
-                    "fecha": "2024-03-04 18:17:13.904704",
-                    "tipoMov": "ReAsignado",
-                    "idRespMov": "12121221"
-                },
-                "004": {
-                    "NroId": "004",
-                    "fecha": "2024-03-04 18:17:13.904704",
-                    "tipoMov": "Dado de baja",
-                    "idRespMov": "12121221"
-                }
-            }
+            "Estado": "no asignado",
+            "historialActivo": {}
         },
         "MON0001": {
             "codTransaccion": "327",
@@ -97,21 +72,8 @@
             "nombre": "CPU - Bodg50-9051-900-0017 GMR ESC   ",
             "nroSerial": "400SN39208",
             "empResponsable": "Campuslands",
-            "Estado": "ReAsignado",
-            "historialActivo": {
-                "001": {
-                    "NroId": "001",
-                    "fecha": "2024-03-04 18:06:20.354912",
-                    "tipoMov": "asignacion",
-                    "idRespMov": 12121221
-                },
-                "002": {
-                    "NroId": "002",
-                    "fecha": "2024-03-04 18:10:46.913609",
-                    "tipoMov": "ReAsignado",
-                    "idRespMov": "12121221"
-                }
-            }
+            "Estado": "no asignado",
+            "historialActivo": {}
         },
         "MON0002": {
             "codTransaccion": "327",
@@ -230,15 +192,8 @@
             "nombre": "CPU - Bodg50-9051-900-0017 GMR ESC   ",
             "nroSerial": "400SN39190",
             "empResponsable": "Campuslands",
-            "Estado": "asignado",
-            "historialActivo": {
-                "001": {
-                    "NroId": "001",
-                    "fecha": "2024-03-04 18:17:13.904704",
-                    "tipoMov": "asignacion",
-                    "idRespMov": "12121221"
-                }
-            }
+            "Estado": "no asignado",
+            "historialActivo": {}
         },
         "MON0004": {
             "codTransaccion": "327",
@@ -537,15 +492,8 @@
             "nombre": "CPU - Bodg50-9051-900-0017 GMR ESC   ",
             "nroSerial": "400SN39204",
             "empResponsable": "Campuslands",
-            "Estado": "asignado",
-            "historialActivo": {
-                "001": {
-                    "NroId": "001",
-                    "fecha": "2024-03-04 18:26:03.956945",
-                    "tipoMov": "asignacion",
-                    "idRespMov": "12121221"
-                }
-            }
+            "Estado": "no asignado",
+            "historialActivo": {}
         },
         "MON0009": {
             "codTransaccion": "327",
@@ -7433,64 +7381,7 @@
             "historialActivo": {}
         }
     },
-    "personas": {
-        "12121221": {
-            "id": "12121221",
-            "nombre": "eeeede",
-            "email": "eddeded",
-            "telefono": {
-                "movil": 322323,
-                "casa": 23233,
-                "personal": 322332,
-                "oficina": 32322
-            }
-        }
-    },
-    "zonas": {
-        "02": {
-            "NroZona": "02",
-            "nombreZona": "dedef",
-            "totalCapacidad": 2
-        },
-        "03": {
-            "NroZona": "03",
-            "nombreZona": "dddd",
-            "totalCapacidad": 323
-        },
-        "01": {
-            "NroZona": "01",
-            "nombreZona": "asdf",
-            "totalCapacidad": 66
-        }
-    },
-    "asignacion": {
-        "Z02": {
-            "NroAsig": "Z02",
-            "fechaAsig": "2024-03-04 18:06:20.354912",
-            "tipoAsig": "zona",
-            "asignadoA": "02",
-            "activos": [
-                "CPU0002"
-            ]
-        },
-        "P12121221": {
-            "NroAsig": "P12121221",
-            "fechaAsig": "2024-03-04 18:17:13.904704",
-            "tipoAsig": "persona",
-            "asignadoA": "12121221",
-            "activos": [
-                "CPU0004",
-                "CPU0001"
-            ]
-        },
-        "Z01": {
-            "NroAsig": "Z01",
-            "fechaAsig": "2024-03-04 18:26:03.956945",
-            "tipoAsig": "zona",
-            "asignadoA": "01",
-            "activos": [
-                "CPU0009"
-            ]
-        }
-    }
+    "personas": {},
+    "zonas": {},
+    "asignacion": {}
 }

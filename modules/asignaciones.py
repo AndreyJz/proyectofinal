@@ -191,7 +191,7 @@ def DardeBaja(inventario):
             for idx, item in enumerate(value['activos']):
                 if codCampus == item:
                     del(value['activos'][idx])
-                break
+                    break
 
 def GarantiaAct(inventario):
     print('Ingrese el id del activo que quiere aplicar la garantia')
