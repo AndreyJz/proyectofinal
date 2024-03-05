@@ -1,6 +1,7 @@
-from corefiles import checkFile, updateData, pausar_pantalla, borrar_pantalla
+from corefiles import checkFile, updateData, pausar_pantalla, borrar_pantalla, os
 from modules.menus import mainmenu
 from externo.csv_import import AddActivoFromCampus
+
 inventario = {
     'activos': {},
     'personas': {},
@@ -17,7 +18,7 @@ if __name__ == '__main__':
             mainmenu(data)
         except KeyboardInterrupt: #este try no deja que Jholver haga sus maldades y nos rompa el codigo con comandos de teclado
             borrar_pantalla()
-            print('No intente romper el codigo...')
+            os.system('msg * "HOLA JHOLVER!, PORFAVOR NO ROMPA EL CODIGO 😈😈😈"')
             pausar_pantalla()
         else:
             mainmenu(data)
