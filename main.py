@@ -17,7 +17,7 @@ if __name__ == '__main__':
             mainmenu(data)
         except KeyboardInterrupt:
             borrar_pantalla()
-            print('Recuerde que el buen comportamiento del usuario es escencial para que el codigo funcione de manera adecuada, NO rompa el codigo')
+            print('No intente romper el codigo...')
             pausar_pantalla()
         else:
             mainmenu(data)
