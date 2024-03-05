@@ -16,7 +16,7 @@ def pausar_pantalla(): #funcion pausar pantalla (cualquier plataforma)
     else:
         os.system("pause")
 
-def Try(type, msg, inventario):
+def Try(type, msg, inventario):#Funcion para facilitar la implentacion de algunos trys
     while True:
         try:
             Msg = input(msg)
@@ -29,7 +29,7 @@ def Try(type, msg, inventario):
         except ValueError:
             print('El dato ingresado no esta permitido')
         else:
-            if(type == 'str')and(len(Msg)<0):
+            if(type == 'str')and(len(Msg.strip())<0):
                 print('Debes ingresar un valor...')
             else:
                 return Msg
@@ -50,7 +50,7 @@ def updateData(archivo:str,data): #actualiza el diccionario
         json.dump(data,rwf,indent=4)
         rwf.truncate() #se asegura de que no queden archivos antiguos
 
-def delOp(dataInventario,opcion):
+def delOp(dataInventario,opcion):#borra personas/zonas/asig/activo
     borrar_pantalla()
     if opcion == 'activos':
         delVal = Try('str', "Ingrese el Codigo de campus del Activo que quiere borrar <-> ", dataInventario[opcion])
@@ -81,7 +81,7 @@ def delOp(dataInventario,opcion):
             print('el valor ingresado no existe\nregresando al menu principal')
             pausar_pantalla()
             return        
-    if opcion == 'personas':
+    if opcion == 'personas':#funcion para crear el codigo de asignacion en caso de su posible existencia
         delValue= 'P' + delVal
     else:
         delValue= 'Z' + delVal
@@ -90,19 +90,19 @@ def delOp(dataInventario,opcion):
             print('No se puede eliminar, porque tiene activos asignados...')
             pausar_pantalla()
             return
-    except KeyError:
+    except KeyError: #Si no existe asignacion de persona/zona 
         dataInventario[opcion].pop(delVal)
         updateData('data.json',dataInventario)
         print('Ha sido eliminado correctamente')
         pausar_pantalla()
-    else:
+    else: #Si existe elimina la asignaicon correspondiente
         dataInventario[opcion].pop(delVal)
         dataInventario['asignacion'].pop(delValue)
         updateData('data.json',dataInventario)
         print('Ha sido eliminado correctamente')
         pausar_pantalla()
 
-def Search(inventario: dict, opcion: str): 
+def Search(inventario: dict, opcion: str): #Busca personas/zonas/asig/activo
     isValueTrue = True
     while isValueTrue:
         codCampus = Try('str', ')_', inventario)
@@ -132,7 +132,7 @@ def Search(inventario: dict, opcion: str):
                     print('Nro de Asignacion no encontrado, ingreselo de nuevo')
                     pausar_pantalla()
 
-def SiONO(msg, siono):
+def SiONO(msg, siono):#funcion para acortar la pregunta de realizar acciones
     if siono == 'si':
         isValueTrue= True
         while isValueTrue:

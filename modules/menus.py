@@ -5,7 +5,6 @@ import modules.reportes as rep
 import modules.asignaciones as a
 import modules.personas as p
 import modules.zonas as z
-import os
 
 
 def mainmenu(data): #menu principal
@@ -89,13 +88,14 @@ def menuAPZ(opcion): #menu (agregar contenido)
         if opcion == 'zonas':
             abc.update(sorted(inventario['zonas'].items())) 
             for key, value in abc.items():
-                print(f'{key}. {value["nombreZona"]}')
-            pausar_pantalla()
+                print(f'{key}. {value["nombreZona"]}')#imprime todas las zonas
+
         if opcion == 'personas':
             abc.update(sorted(inventario['personas'].items())) 
             for key, value in abc.items():
-                print(f'{key}. {value["nombre"]}')
-            pausar_pantalla()
+                print(f'{key}. {value["nombre"]}')#imprime todas las personas
+        
+        pausar_pantalla()
         delOp(inventario,opcion)
     elif (op=='4'):
         borrar_pantalla()
@@ -182,7 +182,7 @@ def menuRep(): #menu de reportes
     elif (op=='6'):
         borrar_pantalla()
         print('Volviendo al menu principal...')
-        os.system('pause')
+        pausar_pantalla()
         mainmenu(inventario)
     else:
         print('El valor ingresado no esta asociado a una seccion...')

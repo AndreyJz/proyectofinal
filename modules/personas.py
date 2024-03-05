@@ -39,7 +39,7 @@ def EditPersona(dataInventario):
         isValueTrue = True
         while isValueTrue:
             cf.borrar_pantalla()
-            opciones = '1. Nombre\n2. Email\n3. telefono\n4. Guardar y salir'
+            opciones = '1. Nombre\n2. Email\n3. telefono\n4. Guardar y salir' #Menu para escoger que desea editar
             print(opciones)
             op = input('Ingrese el numero de la seccion que quiere editar <-> ')
             editar = dataInventario['personas'][codCampus]
@@ -56,7 +56,7 @@ def EditPersona(dataInventario):
                 op = input('Ingrese el numero de la seccion que quiere editar <-> ')
                 editar = dataInventario['personas'][codCampus]['telefono']
                 if (op == '1'):
-                    nuevoValor= Try('int','Ingrese el nuevo valor para el movil <-> ',dataInventario)
+                    nuevoValor= Try('int','Ingrese el nuevo valor para el movil <-> ',dataInventario) #modifica la opcion seleccionada
                     editar['movil'] = nuevoValor
                 elif (op == '2'):
                     nuevoValor= Try('int','Ingrese el nuevo valor para el Nro de Casa <-> ',dataInventario)
@@ -76,7 +76,7 @@ def EditPersona(dataInventario):
         print('No has ingresado ninguna persona...')
         cf.pausar_pantalla()
 
-def SearchPpl(inventario: dict):
+def SearchPpl(inventario: dict): #Busca personas y las imprime 
     codCampus = cf.Search(inventario, 'personas')
     tabla = []
     diccionario = dict(inventario['personas'][codCampus])

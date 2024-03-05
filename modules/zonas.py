@@ -28,11 +28,11 @@ def AddZona(dataInventario):
 def EditZona(dataInventario):
     if dataInventario['zonas']:
         print('Ingresa el Nro de Zona que desees editar <-> ')
-        codCampus= cf.Search(dataInventario, 'zonas')
+        codCampus= cf.Search(dataInventario, 'zonas') #busca zona
         isValueTrue = True
         while isValueTrue:
             cf.borrar_pantalla()
-            opciones = '1. Nombre de la Zona\n2. Capacidad Total\n3. Salir'
+            opciones = '1. Nombre de la Zona\n2. Capacidad Total\n3. Salir'#menu para seleccionar la edicion
             print(opciones)
             op = input('Ingrese el numero de la seccion que quiere editar <-> ')
             editar = dataInventario['personal'][codCampus]
@@ -48,7 +48,7 @@ def EditZona(dataInventario):
         print('No has ingresado ninguna persona...')
         cf.pausar_pantalla()
 
-def SearchZone(inventario: dict):
+def SearchZone(inventario: dict):#Busca zonas y las imprime 
     codCampus = cf.Search(inventario, 'zonas')
     tabla = []
     diccionario = dict(inventario['zonas'][codCampus])

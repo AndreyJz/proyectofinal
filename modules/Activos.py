@@ -24,7 +24,7 @@ def MCT(mct,opcion): #una funcion para resumir la seleccion de marcas/categorias
                 else:
                     return mct[op-1]
 
-def tryValueError():
+def tryValueError(): #funcion para facilitar try de float
     isValueTrue = True
     while isValueTrue:
         try:
@@ -43,13 +43,13 @@ def AddActivo (inventario: dict):
         codCampus = Try('str','ingrese el codigo de campus :',inventario)
         if codCampus in inventario['activos']:
             print('el activo ya existe\nsi deseas crear un activo con este codigo\nelimina el activo anterior')
-            if not SiONO('deseas añadir el activo con otro codCampus? Si[S/s] NO[Enter]', 'si'):
+            if not SiONO('deseas añadir el activo con otro codCampus? Si[S/s] NO[Enter]', 'si'):#si esto se cumple entonces se sale de la funcion para que 
                 return
         else:
             break
-    marca = MCT(marcas,'marca')
-    categoria = MCT(categorias,'categoria')
-    tipo = MCT(tipos,'tipo')
+    marca = MCT(marcas,'marca')#se llama la funcion MCT para facilitar la seleccion de marcas
+    categoria = MCT(categorias,'categoria')#se llama la funcion MCT para facilitar la seleccion de categoria
+    tipo = MCT(tipos,'tipo')#se llama la funcion MCT para facilitar la seleccion de tipos
     borrar_pantalla()
     valor = tryValueError()
     proveedor = str(input('ingrese el proveedor'))
@@ -83,7 +83,7 @@ def EditActivo(inventario):
         while isValueTrue:
             borrar_pantalla()
             print('que valor deseas editar?')
-            menu = '1. codTransaccion\n2. nroFormulario\n3. marca\n4. categoria\n5. tipo\n6. valor\n7. proveedor\n8. nroSerial\n9. empResponsable\n10. guardar y salir'
+            menu = '1. codTransaccion\n2. nroFormulario\n3. marca\n4. categoria\n5. tipo\n6. valor\n7. proveedor\n8. nroSerial\n9. empResponsable\n10. guardar y salir' #menu para seleccionar lo qye se va a editar
             print(menu)
             op = str(input(')_'))
             editar= inventario['activos'][codCampus] #resumiendo la ruta a editar
@@ -124,7 +124,7 @@ def EditActivo(inventario):
     else:
         return
         
-def SearchActivo(inventario: dict):
+def SearchActivo(inventario: dict): #busca activos y los imprime
     codCampus = Search(inventario, 'activos')
     inventariocopy = deepcopy(inventario)
     tabla = []
@@ -133,15 +133,3 @@ def SearchActivo(inventario: dict):
     tabla.append(diccionario)
     print(tabulate(tabla, headers='keys', tablefmt='grid'))
     pausar_pantalla()
-
-# def DeleteActivo(inventario: dict):
-#     if inventario['activos']:
-#         borrar_pantalla()
-#         print('ingrese el codigo de campus del activo que desea borrar')
-#         codCampus= Search(inventario, 'activos')
-#         del(inventario['activos'][codCampus])
-#         print('el activo ha sido eliminado correctamente')
-#         pausar_pantalla()
-#     else:
-#         return
-    
