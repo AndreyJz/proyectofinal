@@ -2,13 +2,13 @@ from csv import reader
 
 def AddActivoFromCampus(inventario: dict):
     data = []
-    with open('externo/activos.csv', 'r') as activos:
-        lector = reader(activos, delimiter=';')
-        for row in lector:
-            elementos = row[0].split(',')
+    with open('externo/activos.csv', 'r') as activos: #abre en lectura el csv
+        lector = reader(activos, delimiter=';') #separa las lines del csv por medio de;
+        for row in lector: #itera sobre cada fila
+            elementos = row[0].split(',') #parte cada elemento de la lista por medio de la coma
             data.append(elementos)
         for item in data:
-            valor = float(item[6])
+            valor = float(item[6]) #convierte en float el valor
             activoCampus= {
             'codTransaccion': item[0],
             'nroFormulario': item[1], 
@@ -25,4 +25,3 @@ def AddActivoFromCampus(inventario: dict):
             'historialActivo': {}  
             }
             inventario['activos'].update({activoCampus['codCampus']: activoCampus})
-            
