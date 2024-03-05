@@ -29,8 +29,8 @@ def Try(type, msg, inventario):#Funcion para facilitar la implentacion de alguno
         except ValueError:
             print('El dato ingresado no esta permitido')
         else:
-            if(type == 'str')and(len(Msg.strip())<0):
-                print('Debes ingresar un valor...')
+            if(type == 'str')and(len(Msg.strip())<=0):
+                os.system('msg * "⚠️ El valor ingresado no esta permito ⚠️"')
             else:
                 return Msg
                 False
