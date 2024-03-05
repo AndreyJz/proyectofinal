@@ -1,5 +1,6 @@
 from corefiles import pausar_pantalla, borrar_pantalla, Search, Try, SiONO
 from tabulate import tabulate
+from copy import deepcopy
 
 marcas = ['Lg', 'Compumax', 'Logitech', 'Benq', 'Asus', 'Lenovo', 'Hp']
 categorias = ['Equipo de computo', 'Electrodomestido', 'juego']
@@ -125,8 +126,9 @@ def EditActivo(inventario):
         
 def SearchActivo(inventario: dict):
     codCampus = Search(inventario, 'activos')
+    inventariocopy = deepcopy(inventario)
     tabla = []
-    diccionario = dict(inventario['activos'][codCampus])
+    diccionario = dict(inventariocopy['activos'][codCampus])
     del(diccionario['historialActivo'])
     tabla.append(diccionario)
     print(tabulate(tabla, headers='keys', tablefmt='grid'))

@@ -1,10 +1,13 @@
 from corefiles import borrar_pantalla, pausar_pantalla, Search
 from tabulate import tabulate
+import copy
 
 def ListarActivos(inventario: dict):
     Activos = []
     inventarioNotHistorial= {}
-    for key, item in inventario['activos'].items():
+    global inventariocopy
+    inventariocopy = copy.deepcopy(inventario)
+    for key, item in inventariocopy['activos'].items():
         inventarioNotHistorial.update({key: item})
         try:
             del inventarioNotHistorial[key]['historialActivo'] #borramos la key historial, para evitar fallos en tabulate
@@ -43,7 +46,7 @@ def ListarCategoria(inventario: dict):
         else:
             print('opcion invalida :C')
             pausar_pantalla()
-    for key, item in inventario['activos'].items():
+    for key, item in inventariocopy['activos'].items():
         inventarioNotHistorial.update({key: item})
         try:
             del inventarioNotHistorial[key]['historialActivo'] 
@@ -64,7 +67,7 @@ def ListarCategoria(inventario: dict):
 def listarDadoDeBajo(inventario):
     Activos = []
     inventarioNotHistorial= {}
-    for key, item in inventario['activos'].items():
+    for key, item in inventariocopy['activos'].items():
         inventarioNotHistorial.update({key: item})
         try:
             del inventarioNotHistorial[key]['historialActivo'] 
