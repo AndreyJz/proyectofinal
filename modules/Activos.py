@@ -40,7 +40,7 @@ def AddActivo (inventario: dict):
     categoria = MCT(categorias,'categoria')#se llama la funcion MCT para facilitar la seleccion de categoria
     tipo = MCT(tipos,'tipo')#se llama la funcion MCT para facilitar la seleccion de tipos
     borrar_pantalla()
-    valor = Try('float','Ingrese el valor unitario <-> ', inventario)
+    valor = Try('float','Ingrese el valor unitario <-> ')
     proveedor = str(input('ingrese el proveedor'))
     nroSerial = str(input('ingrese el numero serial'))
     empResponsable = str(input('ingrese cual es la empresa responsable :'))
@@ -92,13 +92,13 @@ def EditActivo(inventario):
                 nuevoValor= MCT(tipos)
                 editar['tipo']= nuevoValor
             elif op == '6':
-                nuevoValor= tryValueError()
+                nuevoValor= Try('float','Ingrese el nuevo valor para el valor unitario')
                 editar['valor']= nuevoValor
             elif op == '7':
                 nuevoValor= str(input('ingrese el proveedor'))
                 editar['proveedor']= nuevoValor
             elif op == '8':
-                nuevoValor= tryValueError()
+                nuevoValor= Try('float','Ingrese el nuevo valor para el Nro Serial')
                 editar['nroSerial']= nuevoValor
             elif op == '9':
                 nuevoValor= str(input('ingrese cual es la empresa responsable :'))

@@ -28,7 +28,7 @@ def AddPersona(dataInventario):
             'oficina':oficina
         }
     }
-    dataInventario.get('personas').update({id:Person})
+    dataInventario.get('personas').update({str(id):Person})
 
 
 def EditPersona(dataInventario):

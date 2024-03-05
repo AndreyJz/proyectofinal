@@ -103,7 +103,7 @@ def menuAPZ(opcion): #menu (agregar contenido)
             if opcion == 'activos':
                 print('Ingrese el numero de identificacion del activo a buscar <-> ')
                 act.SearchActivo(inventario)
-            elif opcion == 'personal':
+            elif opcion == 'personas':
                 print('Ingrese el numero de identificacion de la persona a buscar <-> ')
                 p.SearchPpl(inventario)
             elif opcion == 'zonas':

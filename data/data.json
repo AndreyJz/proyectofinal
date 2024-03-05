@@ -12,8 +12,15 @@
             "nombre": "CPU - Bodg50-9051-900-0017 GMR ESC   ",
             "nroSerial": "400SN39173",
             "empResponsable": "Campuslands",
-            "Estado": "no asignado",
-            "historialActivo": {}
+            "Estado": "asignado",
+            "historialActivo": {
+                "001": {
+                    "NroId": "001",
+                    "fecha": "2024-03-05 12:43:37.933878",
+                    "tipoMov": "asignacion",
+                    "idRespMov": "123"
+                }
+            }
         },
         "MON0001": {
             "codTransaccion": "327",
@@ -7381,7 +7388,29 @@
             "historialActivo": {}
         }
     },
-    "personas": {},
+    "personas": {
+        "123": {
+            "id": "123",
+            "nombre": "swsws",
+            "email": "swsw",
+            "telefono": {
+                "movil": 122112,
+                "casa": 21212,
+                "personal": 21121,
+                "oficina": 22112
+            }
+        }
+    },
     "zonas": {},
-    "asignacion": {}
+    "asignacion": {
+        "P123": {
+            "NroAsig": "P123",
+            "fechaAsig": "2024-03-05 12:43:37.933878",
+            "tipoAsig": "persona",
+            "asignadoA": "123",
+            "activos": [
+                "CPU0001"
+            ]
+        }
+    }
 }
