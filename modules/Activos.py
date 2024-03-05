@@ -24,17 +24,6 @@ def MCT(mct,opcion): #una funcion para resumir la seleccion de marcas/categorias
                 else:
                     return mct[op-1]
 
-def tryValueError(): #funcion para facilitar try de float
-    isValueTrue = True
-    while isValueTrue:
-        try:
-            variable = float(input('ingrese el valor unitario'))
-        except ValueError:
-            print('estas ingresando un valor erroneo')
-            pausar_pantalla()
-        else:
-            return variable
-            isValueTrue = False
 
 def AddActivo (inventario: dict):
     codTransaccion = str(input('ingrese el codigo de transaccion :'))
@@ -51,7 +40,7 @@ def AddActivo (inventario: dict):
     categoria = MCT(categorias,'categoria')#se llama la funcion MCT para facilitar la seleccion de categoria
     tipo = MCT(tipos,'tipo')#se llama la funcion MCT para facilitar la seleccion de tipos
     borrar_pantalla()
-    valor = tryValueError()
+    valor = Try('float','Ingrese el valor unitario <-> ', inventario)
     proveedor = str(input('ingrese el proveedor'))
     nroSerial = str(input('ingrese el numero serial'))
     empResponsable = str(input('ingrese cual es la empresa responsable :'))
